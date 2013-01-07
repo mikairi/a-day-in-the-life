@@ -14,14 +14,6 @@ public class TeamLeader extends Employee {
 	
 	
 	/**
-	*	Ask a question to your team
-	*/
-	public void askTeamQuestion(){
-	
-	
-	}
-	
-	/**
 	*	Ask a question to your manager
 	*/
 	public void askManagerQuestion(){
@@ -37,4 +29,18 @@ public class TeamLeader extends Employee {
 	
 	}
 
+	
+	// meeting with meam members
+	public void startTeamMeeting(){
+	
+	
+	}
+	
+	
+	// meeting with other team leads and manager
+	public void goToStandup(){
+	
+	
+	}
+	
 }
