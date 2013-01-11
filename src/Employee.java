@@ -50,7 +50,7 @@ public abstract class Employee extends Thread {
 	/**
 	 * Specifies an employee arriving to the work place
 	 */
-	private void goToWork() {
+	void goToWork() {
 
 		idle = false;
 
@@ -66,7 +66,7 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Employee " + employNumber + " on team " + getTeamNumber() + " arrived to work.");
+		System.out.println("Employee " + getTeamNumber() + employNumber + " arrived to work.");
 
 		returnToWork();
 	}
@@ -74,14 +74,14 @@ public abstract class Employee extends Thread {
 	/**
 	 * Specifies an employee leaving the work place
 	 */
-	private void goHome() {
-		System.out.println("Employee " + employNumber + " on team " + getTeamNumber() + " has left the work place.");		
+	void goHome() {
+		System.out.println("Employee " + getTeamNumber() + employNumber + " has left the work place.");
 	}
 
 	/**
 	 * Specifies an employee taking their lunch break
 	 */
-	private void goToLunch() {
+	void goToLunch() {
 
 		idle = false;
 		eatenLunch = true;
@@ -98,7 +98,7 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Employee " + employNumber + " on team " + getTeamNumber() + " went to lunch.");
+		System.out.println("Employee " + getTeamNumber() + employNumber + " went to lunch.");
 
 		returnToWork();
 	}
@@ -106,8 +106,8 @@ public abstract class Employee extends Thread {
 	/**
 	 * Set the state to an "idle" working state
 	 */
-	private void returnToWork() {		
-		System.out.println("Employee " + employNumber + " on team " + getTeamNumber() + " is now working.");		
+	void returnToWork() {		
+		System.out.println("Employee " + getTeamNumber() + employNumber + " is now working.");		
 		idle = true;
 	}
 }

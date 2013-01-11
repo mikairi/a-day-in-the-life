@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 /*
@@ -40,10 +41,14 @@ public class ConferenceRoom {
 			}
 		}
 		numEmployees++;
-		//make sure all are in before starting meeting
-		startMeeting.await();
-		//have the meeting for 15 minutes
-		wait(150);
+		try {
+			//make sure all are in before starting meeting
+			startMeeting.await();
+			//have the meeting for 15 minutes
+			wait(150);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
