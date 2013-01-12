@@ -120,4 +120,9 @@ public abstract class Employee extends Thread {
 		System.out.println("Employee " + getTeamNumber() + getEmployNumber() + " is now working.");
 		idle = true;
 	}
+
+	public void inspire() {
+		System.out.println("I AM INSPIRED WITH ALL THINGS CONCURRENT");
+		
+	}
 }
