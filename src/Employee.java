@@ -3,6 +3,8 @@ import java.util.Random;
 
 public abstract class Employee extends Thread {
 
+	final private int NUMBER_HOURS_TO_WORK = 480;
+	
 	private int employNumber;
 	private int teamNumber;
 	
@@ -11,8 +13,9 @@ public abstract class Employee extends Thread {
 
 	private Random randomNum = new Random();
 	
-	private int arrivalTime;
+	private int arrivalTime;	
 	private int lunchTime;
+	private int endTime;
 	private long simulationTime;
 	
 	/**
@@ -57,6 +60,13 @@ public abstract class Employee extends Thread {
 		// generate a time between 0 and 30 minutes
 		arrivalTime = randomNum.nextInt(30);
 		
+		// Pre-determine the employee's time taken for lunch [FATE]
+		// generate a time between 0 and 30 - time arrived to work
+		lunchTime = randomNum.nextInt(30-arrivalTime) + 30;
+		
+		// calculate end time for employee to leave
+		endTime = arrivalTime + lunchTime + NUMBER_HOURS_TO_WORK;
+		
 		// convert arrival time to simulation time
 		simulationTime = arrivalTime * 10;		
 
@@ -66,7 +76,7 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Employee " + employNumber + " on team " + getTeamNumber() + " arrived to work.");
+		System.out.println("Employee " + getEmployNumber() + " on team " + getTeamNumber() + " arrived to work.");
 
 		returnToWork();
 	}
@@ -75,7 +85,7 @@ public abstract class Employee extends Thread {
 	 * Specifies an employee leaving the work place
 	 */
 	private void goHome() {
-		System.out.println("Employee " + employNumber + " on team " + getTeamNumber() + " has left the work place.");		
+		System.out.println("Employee " + getEmployNumber() + " on team " + getTeamNumber() + " has left the work place.");		
 	}
 
 	/**
@@ -85,9 +95,6 @@ public abstract class Employee extends Thread {
 
 		idle = false;
 		eatenLunch = true;
-
-		// generate a time between 0 and 60 - time arrived to work
-		lunchTime = randomNum.nextInt(60-arrivalTime);
 		
 		// convert lunch time to simulation time
 		simulationTime = lunchTime * 10;	
@@ -98,7 +105,7 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Employee " + employNumber + " on team " + getTeamNumber() + " went to lunch.");
+		System.out.println("Employee " + getEmployNumber() + " on team " + getTeamNumber() + " went to lunch.");
 
 		returnToWork();
 	}
@@ -107,7 +114,7 @@ public abstract class Employee extends Thread {
 	 * Set the state to an "idle" working state
 	 */
 	private void returnToWork() {		
-		System.out.println("Employee " + employNumber + " on team " + getTeamNumber() + " is now working.");		
+		System.out.println("Employee " + getEmployNumber() + " on team " + getTeamNumber() + " is now working.");		
 		idle = true;
 	}
 }
