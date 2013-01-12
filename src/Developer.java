@@ -14,8 +14,7 @@ public class Developer extends Employee {
 	*	Ask a question to your team lead
 	*/
 	public void askTeamLeadQuestion(){
-	
-	
+		myLead.answerTeamQuestion();
 	}
 	
 	/**
