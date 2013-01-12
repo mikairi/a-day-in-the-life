@@ -27,8 +27,8 @@ public class Developer extends Employee {
 	
 	// meeting with other devs and team lead
 	public void goToTeamMeeting(){
-	
-	
+		confRoom.enterRoom();
+		confRoom.leaveRoom();
 	}
 
 }

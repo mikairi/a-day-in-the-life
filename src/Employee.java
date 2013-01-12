@@ -6,6 +6,9 @@ public abstract class Employee extends Thread {
 	private int employNumber;
 	private int teamNumber;
 	
+	ConferenceRoom confRoom;
+	ManagersOffice manOffice;
+	
 	private boolean idle;
 	private boolean eatenLunch;
 
