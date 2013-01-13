@@ -54,7 +54,11 @@ public class ManagersOffice {
 		}
 		numEmployees++;
 		//ask the question for 10 minutes
-		wait(100);
+		try {
+			wait(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		leaveRoom();
 	}
 	
