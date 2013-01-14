@@ -55,5 +55,25 @@ public class Developer extends Employee {
 		confRoom.enterRoom();
 		confRoom.leaveRoom();
 	}
+	
+	void goToWork() {
+		System.out.println("Developer " + getTeamNumber() + getEmployNumber() + " arrived to work.");
+		super.goToWork();
+	}
+	
+	void goHome() {
+		System.out.println("Developer " + getTeamNumber() + getEmployNumber() + " has left the work place.");
+		super.goHome();
+	}
+	
+	void goToLunch() {
+		System.out.println("Developer " + getTeamNumber() + getEmployNumber() + " went to lunch.");
+		super.goToLunch();
+	}
+	
+	void returnToWork() {
+		System.out.println("Developer " + getTeamNumber() + getEmployNumber() + " is now working.");
+		super.returnToWork();
+	}
 
 }

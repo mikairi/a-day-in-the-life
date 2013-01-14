@@ -4,122 +4,110 @@ import java.util.TimerTask;
 /**
  * Keeps track of the current time at the company.
  * 
- * Special thanks to Kristen Mills for the inspiration and help with debugging. 
+ * Special thanks to Kristen Mills for the inspiration and help with debugging.
  * 
  * @author Andrew Lyne
  * @collaborator Kristen Mills
- *
+ * 
  */
 public class FirmClock {
 
-		/**
-		 * Start of the day ( 7:45am ) in minutes
-		 */
-		private static final int START_DAY = 465; 
+	/**
+	 * Start of the day ( 7:45am ) in minutes
+	 */
+	private static final int START_DAY = 465;
 
-		/**
-		 * End of the day ( 5:00pm )in minutes
-		 */
-		private static final int END_DAY = 1020;
+	/**
+	 * End of the day ( 5:00pm )in minutes
+	 */
+	private static final int END_DAY = 1020;
 
-		/**
-		 * The clock
-		 */
-		private final Timer timer = new Timer();
+	/**
+	 * The clock
+	 */
+	private final Timer timer = new Timer();
 
-		/**
-		 * Time in minutes of the current time. Starts at START_DAY 
-		 * (7:45 am) and ends at END_DAY (5:15pm).
-		 */
-		private int currTime = START_DAY;
+	/**
+	 * Time in minutes of the current time. Starts at START_DAY (7:45 am) and
+	 * ends at END_DAY (5:15pm).
+	 */
+	private int currTime = START_DAY;
 
-		/**
-		 * Starts the timer at 8:00 which will increment the minute of the clock 
-		 * every 10ms until 17:00 (5:00pm)
-		 */
-		public void start() {
-			TimerTask task = new TimerTask() {
-				public void run() {
-					if( currTime >= END_DAY + 15){
-						stop();
-					}
-					System.out.println( currTime );
-					currTime += 1;
+	/**
+	 * Starts the timer at 8:00 which will increment the minute of the clock
+	 * every 10ms until 17:00 (5:00pm)
+	 */
+	public void start() {
+		TimerTask task = new TimerTask() {
+			public void run() {
+				if (currTime >= END_DAY + 15) {
+					stop();
 				}
-			};
-			timer.schedule(task, 0, 10);
-			
-		}
-
-		/**
-		 * Stops the timer
-		 */
-		public void stop() {
-			timer.cancel();
-		}
-
-		/**
-		 * Checks if the current time is past or equal to the end of the day
-		 * 
-		 * @return True if day is over, false otherwise
-		 */
-		public boolean isEndOfDay() {
-			if (currTime >= END_DAY)
-				return true;
-			return false;
-		}
-
-		/**
-		 * Get current time in minutes of the system. 
-		 * 
-		 * @return the current time in minutes
-		 */
-		public long getcurrTime() {
-			return currTime;
-		}
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/**
-		 * Converts the long of minutes into an hour minutes representation
-		 * 
-		 * @return a long array where the first value is hours and second value is
-		 *         minutes
-		 */
-		private long[] hourMinutes() {
-			long curcurrTime = currTime;
-			long hour = (START_DAY + curcurrTime / 60) % 12;
-			long minutes = curcurrTime % 60;
-			long[] time = { hour, minutes };
-			return time;
-		}
-
-		/**
-		 * Formatted string of the current time
-		 * 
-		 * @return a string of the current time in the form HH:MM AM/PM
-		 */
-		public String formatTime() {
-			long[] time = hourMinutes();
-			String timeOfDay = "AM";
-			if (time[0] < START_DAY) {
-				timeOfDay = "PM";
+				System.out.println(currTime);
+				currTime += 1;
 			}
-			if (time[0] == 0) {
-				time[0] = 12;
-			}
-
-			return String.format("%d:%02d %s", time[0], time[1], timeOfDay);
-		}
+		};
+		timer.schedule(task, 0, 10);
 
 	}
+
+	/**
+	 * Stops the timer
+	 */
+	public void stop() {
+		timer.cancel();
+	}
+
+	/**
+	 * Checks if the current time is past or equal to the end of the day
+	 * 
+	 * @return True if day is over, false otherwise
+	 */
+	public boolean isEndOfDay() {
+		if (currTime >= END_DAY)
+			return true;
+		return false;
+	}
+
+	/**
+	 * Get current time in minutes of the system.
+	 * 
+	 * @return the current time in minutes
+	 */
+	public long getcurrTime() {
+		return currTime;
+	}
+
+	/**
+	 * Converts the long of minutes into an hour minutes representation
+	 * 
+	 * @return a long array where the first value is hours and second value is
+	 *         minutes
+	 */
+	private long[] hourMinutes() {
+		long curcurrTime = currTime;
+		long hour = (START_DAY + curcurrTime / 60) % 12;
+		long minutes = curcurrTime % 60;
+		long[] time = { hour, minutes };
+		return time;
+	}
+
+	/**
+	 * Formatted string of the current time
+	 * 
+	 * @return a string of the current time in the form HH:MM AM/PM
+	 */
+	public String formatTime() {
+		long[] time = hourMinutes();
+		String timeOfDay = "AM";
+		if (time[0] < START_DAY) {
+			timeOfDay = "PM";
+		}
+		if (time[0] == 0) {
+			time[0] = 12;
+		}
+
+		return String.format("%d:%02d %s", time[0], time[1], timeOfDay);
+	}
+
+}

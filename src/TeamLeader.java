@@ -42,4 +42,24 @@ public class TeamLeader extends Employee {
 		manOffice.enterStandupMeeting();
 	}
 	
+	void goToWork() {
+		System.out.println("Team Leader " + getTeamNumber() + " arrived to work.");
+		super.goToWork();
+	}
+	
+	void goHome() {
+		System.out.println("Team Leader " + getTeamNumber() + " has left the work place.");
+		super.goHome();
+	}
+	
+	void goToLunch() {
+		System.out.println("Team Leader " + getTeamNumber() + " went to lunch.");
+		super.goToLunch();
+	}
+	
+	void returnToWork() {
+		System.out.println("Team Leader  " + getTeamNumber() + " is now working.");
+		super.returnToWork();
+	}
+	
 }

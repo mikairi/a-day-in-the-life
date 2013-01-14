@@ -49,7 +49,7 @@ public abstract class Employee extends Thread {
 	 * Gets a specified team number assigned to each employee
 	 * @return employee team number
 	 */
-	public int getTeamNumber() {		
+	public int getTeamNumber() {
 		return teamNumber;
 	}	
 
@@ -78,8 +78,6 @@ public abstract class Employee extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("Employee " + getTeamNumber() + getTeamNumber() + " arrived to work.");
 
 		returnToWork();
 	}
@@ -88,7 +86,6 @@ public abstract class Employee extends Thread {
 	 * Specifies an employee leaving the work place
 	 */
 	void goHome() {
-		System.out.println("Employee " + getTeamNumber() + getEmployNumber() + " has left the work place.");
 	}
 
 	/**
@@ -107,8 +104,6 @@ public abstract class Employee extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
-		System.out.println("Employee " + getTeamNumber() + getEmployNumber() + " went to lunch.");
 		
 		returnToWork();
 	}
@@ -116,8 +111,7 @@ public abstract class Employee extends Thread {
 	/**
 	 * Set the state to an "idle" working state
 	 */
-	void returnToWork() {		
-		System.out.println("Employee " + getTeamNumber() + getEmployNumber() + " is now working.");
+	void returnToWork() {
 		idle = true;
 	}
 
