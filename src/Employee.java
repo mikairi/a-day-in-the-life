@@ -64,8 +64,13 @@ public abstract class Employee extends Thread {
 	*	@param time    Time to sleep until
 	*/
 	void sleepUntil(int time){
-		while( clock.getCurrTime() < time ){
-			Thread.sleep(5);
+		while( clock.getcurrTime() < time ){
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -96,7 +101,12 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 
-		Thread.sleep( arrivalTime * 10);
+		try {
+			Thread.sleep( arrivalTime * 10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		returnToWork();
 	}
 
