@@ -42,7 +42,7 @@ public class Developer extends Employee {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		Random randGen = new Random();
 		// If false, team lead and the member go to ask the manager;
 		// otherwise answer and naturally return to work.
@@ -63,5 +63,83 @@ public class Developer extends Employee {
 	public void run(){
 		sleepUntil( 480);
 		goToWork();
+		
+		int timeToStartLunch = randomNum.nextInt(120) + 660;
+		
+		// The time leading up to lunch time
+		while(theFirm.getClock().getCurrTime() < timeToStartLunch) {
+			// Needed to implement this note logic to avoid deadlock (see documentation)
+			if(hasNote) {
+				answerNoteToQuestion();
+			}
+			else if(hasQuestion) {
+				while(hasQuestion) {
+					try {
+						sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			else {
+				try {
+					sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		goToLunch();
+		
+		// The time after lunch has finished
+		while(theFirm.getClock().getCurrTime() < 960) {
+			if(hasNote) {
+				answerNoteToQuestion();
+			}
+			else if(hasQuestion) {
+				while(hasQuestion) {
+					try {
+						sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			else {
+				try {
+					sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		goToEndOfDayMeeting();
+		
+		// The time after the final meeting until the end of day
+		while(theFirm.getClock().getCurrTime() < endTime || hasNote) {
+			if(hasNote) {
+				answerNoteToQuestion();
+			}
+			else if(hasQuestion) {
+				while(hasQuestion) {
+					try {
+						sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			else {
+				try {
+					sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
 	}
 }

@@ -31,7 +31,7 @@ public class TeamLeader extends Employee {
 	*/
 	public void askManagerQuestion(){
 		theFirm.getManOffice().enterforQuestion();
-		hasquestion = false;
+		hasQuestion = false;
 	}
 	
 	/**

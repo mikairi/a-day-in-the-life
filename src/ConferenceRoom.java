@@ -14,6 +14,7 @@ public class ConferenceRoom {
 	private int numEmployees = 0;
 	private LinkedList<Integer> waitingTeams = new LinkedList<Integer>();
 	private CyclicBarrier startMeeting = new CyclicBarrier(4);
+	private CyclicBarrier endOfDayMeeting = new CyclicBarrier(13);
 	
 	/**
 	 * Requests to enter room, and waits if cant
@@ -23,7 +24,7 @@ public class ConferenceRoom {
 	 * letting people in it checks to see if those in the room are in the same
 	 * team. When all employees arrive, the meeting starts 
 	 */
-	public synchronized void enterRoom(){
+	public void enterRoom(){
 		Employee employee = (Employee)Thread.currentThread();
 		
 		//if the team number isnt registered, register it.
@@ -55,11 +56,23 @@ public class ConferenceRoom {
 	 * An employee leaves the room. If there are none left in the room then
 	 * other teams can take over.
 	 */
-	public synchronized void leaveRoom(){
+	public void leaveRoom(){
 		numEmployees--;
 		if(numEmployees == 0){
 			waitingTeams.remove();
 		}
 		notifyAll();
+	}
+	
+	public void attendEndOfDayMeeting() {
+		try {
+			endOfDayMeeting.await();
+			Thread.sleep(150);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (BrokenBarrierException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

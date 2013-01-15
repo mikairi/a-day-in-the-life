@@ -2,23 +2,26 @@ import java.util.Random;
 
 public abstract class Employee extends Thread {
 
-	final private int NUMBER_HOURS_TO_WORK = 480;
+	final private int NUMBER_MINUTES_TO_WORK = 480;
 	
 	protected int employNumber;
 	protected int teamNumber;
 	
+	protected Developer hasQuestionForMe = null;
+	
 	protected Firm theFirm;
 	
-	private boolean idle;
+	private boolean idle = false;
 	private boolean eatenLunch;
 
-	private Random randomNum = new Random();
+	protected Random randomNum = new Random();
 	
 	private int arrivalTime;	
 	private int lunchTime;
-	private int endTime;
+	protected int endTime;
 	private long simulationTime;
-	private boolean	hasQuestion = false;
+	protected boolean hasNote = false;
+	protected boolean hasQuestion = false;
 	
 	public Employee() {
 		super();
@@ -54,7 +57,30 @@ public abstract class Employee extends Thread {
 	 */
 	public int getTeamNumber() {
 		return teamNumber;
-	}	
+	}
+	
+	public void leaveNote(Developer dev) {
+		hasQuestionForMe = dev;
+	}
+	
+	public void answerNoteToQuestion() {
+		
+		try {			
+			sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		hasQuestionForMe.gotQuestionAnswered();		
+		hasQuestionForMe = null;
+		
+		logAction("answered question");
+	}
+	
+	public void gotQuestionAnswered() {
+		hasQuestion = false;
+	}
 
 
 	/**
@@ -90,7 +116,7 @@ public abstract class Employee extends Thread {
 		lunchTime = randomNum.nextInt(30-arrivalTime) + 30;
 		
 		// calculate end time for employee to leave
-		endTime = arrivalTime + lunchTime + NUMBER_HOURS_TO_WORK;
+		endTime = arrivalTime + lunchTime + NUMBER_MINUTES_TO_WORK;
 		
 		// convert arrival time to simulation time
 		simulationTime = arrivalTime * 10;		
@@ -103,19 +129,7 @@ public abstract class Employee extends Thread {
 
 		logAction("arrived to work.");
 		
-		try {
-			Thread.sleep( arrivalTime * 10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		returnToWork();
-	}
-
-	/**
-	 * Specifies an employee leaving the work place
-	 */
-	protected void goHome() {
-		logAction("has left the workplace.");
 	}
 
 	/**
@@ -124,7 +138,8 @@ public abstract class Employee extends Thread {
 	protected void goToLunch() {
 
 		idle = false;
-		eatenLunch = true;
+		
+		logAction("went to lunch.");
 		
 		// convert lunch time to simulation time
 		simulationTime = lunchTime * 10;	
@@ -134,10 +149,23 @@ public abstract class Employee extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		logAction("went to lunch.");
-		
+
+		eatenLunch = true;
 		returnToWork();
+	}
+	
+	protected void goToEndOfDayMeeting() {
+		logAction("went to project status update meeting");
+		theFirm.getConfRoom().attendEndOfDayMeeting();
+		logAction("meeting concluded");
+		returnToWork();
+	}
+
+	/**
+	 * Specifies an employee leaving the work place
+	 */
+	protected void goHome() {
+		logAction("has left the workplace.");
 	}
 
 	/**
