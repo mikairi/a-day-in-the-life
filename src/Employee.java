@@ -18,10 +18,11 @@ public abstract class Employee extends Thread {
 	private int lunchTime;
 	private int endTime;
 	private long simulationTime;
-	private boolean	hasQuestion = false;
+	protected boolean hasQuestion = false;
 	
-	public Employee() {
+	public Employee(Firm firm) {
 		super();
+		this.theFirm = firm;
 	}
 
 	/**

@@ -12,8 +12,8 @@ public class TeamLeader extends Employee {
 	// This team leader's manager
 	private Manager myManager;
 	
-	public TeamLeader(int teamNumber, Manager manager) {
-		super();
+	public TeamLeader(int teamNumber, Manager manager, Firm firm) {
+		super(firm);
 		this.teamNumber = teamNumber;
 		this.myManager = manager;
 		
@@ -31,7 +31,7 @@ public class TeamLeader extends Employee {
 	*/
 	public void askManagerQuestion(){
 		theFirm.getManOffice().enterforQuestion();
-		hasquestion = false;
+		hasQuestion = false;
 	}
 	
 	/**
@@ -49,14 +49,7 @@ public class TeamLeader extends Employee {
 			askManagerQuestion();
 		}
 		else{
-			// 10 minutes to answer a question
-			try {
-				sleep(100);
-				logAction("answered Developer question.");
-			}	 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}			
+			logAction("answered developer's question.");		
 		}
 
 	}

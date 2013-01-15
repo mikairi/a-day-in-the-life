@@ -4,8 +4,8 @@ public class Manager extends Employee {
 
 	private ArrayList<TeamLeader> myLeads = new ArrayList<TeamLeader>();
 	
-	public Manager() {
-		super();
+	public Manager(Firm firm) {
+		super(firm);
 		setName("Manager");
 	}
 	
