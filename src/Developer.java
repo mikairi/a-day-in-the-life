@@ -66,4 +66,8 @@ public class Developer extends Employee {
 		theFirm.getConfRoom().leaveRoom();
 	}
 
+	public void run(){
+		sleepUntil( 480);
+		goToWork();
+	}
 }

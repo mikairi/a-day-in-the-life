@@ -55,6 +55,24 @@ public abstract class Employee extends Thread {
 		return teamNumber;
 	}	
 
+
+	/**
+	*	Causes the thread to wait until the FirmClock associated
+	*   with this object reads the passed time. Time expressed in
+	*   minutes.
+	*
+	*	@param time    Time to sleep until
+	*/
+	void sleepUntil(long time){
+		while( theFirm.getClock().getCurrTime() < time ){
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	/**
 	 * Specifies an employee arriving to the work place
 	 */
@@ -83,6 +101,11 @@ public abstract class Employee extends Thread {
 
 		logAction("arrived to work.");
 		
+		try {
+			Thread.sleep( arrivalTime * 10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		returnToWork();
 	}
 

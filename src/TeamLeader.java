@@ -69,5 +69,10 @@ public class TeamLeader extends Employee {
 	public void goToStandup(){
 		theFirm.getManOffice().enterStandupMeeting();
 	}
+
+	public void run(){
+		sleepUntil( 480);
+		goToWork();
+	}
 	
 }
