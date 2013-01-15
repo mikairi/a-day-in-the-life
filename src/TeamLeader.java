@@ -76,5 +76,10 @@ public class TeamLeader extends Employee {
 		System.out.println("Team Leader  " + getTeamNumber() + " is now working.");
 		super.returnToWork();
 	}
+
+	public void run(){
+		sleepUntil( 480);
+		goToWork();
+	}
 	
 }

@@ -3,6 +3,8 @@ import java.util.Random;
 
 public abstract class Employee extends Thread {
 
+	private static FirmClock clock;
+
 	final private int NUMBER_HOURS_TO_WORK = 480;
 	
 	private int employNumber;
@@ -53,6 +55,21 @@ public abstract class Employee extends Thread {
 		return teamNumber;
 	}	
 
+
+	/**
+	*	Causes the thread to wait until the FirmClock associated
+	*   with this object reads the passed time. Time expressed in
+	*   minutes.
+	*
+	*	@param time    Time to sleep until
+	*/
+	void sleepUntil(int time){
+		while( clock.getCurrTime() < time ){
+			Thread.sleep(5);
+		}
+	}
+
+
 	/**
 	 * Specifies an employee arriving to the work place
 	 */
@@ -79,6 +96,7 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 
+		Thread.sleep( arrivalTime * 10);
 		returnToWork();
 	}
 

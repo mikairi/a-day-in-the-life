@@ -76,4 +76,8 @@ public class Developer extends Employee {
 		super.returnToWork();
 	}
 
+	public void run(){
+		sleepUntil( 480);
+		goToWork();
+	}
 }
