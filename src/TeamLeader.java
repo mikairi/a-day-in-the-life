@@ -7,16 +7,30 @@ public class TeamLeader extends Employee {
 	*/
 	
 	// Group of employees on this Team Leader's team
-	private ArrayList<Developer> myTeam;
+	private ArrayList<Developer> myTeam = new ArrayList<Developer>();
 	
 	// This team leader's manager
 	private Manager myManager;
+	
+	public TeamLeader(int teamNumber, Manager manager) {
+		super();
+		this.teamNumber = teamNumber;
+		this.myManager = manager;
+		
+		// Add self to manager's list of team leaders
+		myManager.addTeamLeader(this);
+		setName("Team Leader " + getTeamNumber());
+	}
+	
+	public synchronized void addTeamMember(Developer member) {
+		myTeam.add(member);
+	}
 	
 	/**
 	*	Ask a question to your manager
 	*/
 	public void askManagerQuestion(){
-		manOffice.enterforQuestion();
+		theFirm.getManOffice().enterforQuestion();
 	}
 	
 	/**
@@ -28,38 +42,30 @@ public class TeamLeader extends Employee {
 		// Otherwise automatically answer and naturally return to work.
 		// TODO: The team member also needs to go to the manager.
 		if (randGen.nextBoolean()) {
+			logAction("asked manager for help with Developer question.");
 			askManagerQuestion();
+		}
+		
+		else{
+			// 10 minutes to answer a question
+			try {
+				sleep(100);
+				logAction("answered Developer question.");
+			}	 
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}			
 		}
 	}
 	
 	// meeting with meam members
 	public void startTeamMeeting(){
-		confRoom.enterRoom();
+		theFirm.getConfRoom().enterRoom();
 	}
 	
 	// meeting with other team leads and manager
 	public void goToStandup(){
-		manOffice.enterStandupMeeting();
-	}
-	
-	void goToWork() {
-		System.out.println("Team Leader " + getTeamNumber() + " arrived to work.");
-		super.goToWork();
-	}
-	
-	void goHome() {
-		System.out.println("Team Leader " + getTeamNumber() + " has left the work place.");
-		super.goHome();
-	}
-	
-	void goToLunch() {
-		System.out.println("Team Leader " + getTeamNumber() + " went to lunch.");
-		super.goToLunch();
-	}
-	
-	void returnToWork() {
-		System.out.println("Team Leader  " + getTeamNumber() + " is now working.");
-		super.returnToWork();
+		theFirm.getManOffice().enterStandupMeeting();
 	}
 
 	public void run(){

@@ -74,7 +74,7 @@ public class FirmClock {
 	 * 
 	 * @return the current time in minutes
 	 */
-	public long getcurrTime() {
+	public long getCurrTime() {
 		return currTime;
 	}
 

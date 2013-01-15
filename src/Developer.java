@@ -2,19 +2,29 @@ import java.util.*;
 
 public class Developer extends Employee {
 
-/*
+	/*
 	*	Variables
 	*/
 	
 	// This developer's team leader
-	private TeamLeader myLead;
+	private final TeamLeader myLead;
 	
+	public Developer(int teamNumber, int employNumber, TeamLeader lead) {
+		super();
+		this.teamNumber = teamNumber;
+		this.employNumber = employNumber;
+		this.myLead = lead;
+		
+		// Add self to team leader's team
+		myLead.addTeamMember(this);
+		setName("Developer " + getTeamNumber() + getEmployNumber());
+	}
 	
 	/**
 	*	Ask a question to your team lead
 	*/
 	public void askTeamLeadQuestion(){
-		System.out.println("TIME Developer " + getTeamNumber() + getEmployNumber() + " asks a question.");
+		logAction("asked a question.");
 		
 		// 10 minutes to propose a question
 		try {
@@ -45,35 +55,15 @@ public class Developer extends Employee {
 		if (randGen.nextBoolean()) {
 			myLead.askManagerQuestion();
 		} else {
-			System.out.println("TIME Developer " + getTeamNumber() + getEmployNumber() + " answered their team lead's question.");
+			logAction("answered their team leader's question.");
 			goToWork();
 		}
 	}
 	
 	// meeting with other devs and team lead
 	public void goToTeamMeeting(){
-		confRoom.enterRoom();
-		confRoom.leaveRoom();
-	}
-	
-	void goToWork() {
-		System.out.println("Developer " + getTeamNumber() + getEmployNumber() + " arrived to work.");
-		super.goToWork();
-	}
-	
-	void goHome() {
-		System.out.println("Developer " + getTeamNumber() + getEmployNumber() + " has left the work place.");
-		super.goHome();
-	}
-	
-	void goToLunch() {
-		System.out.println("Developer " + getTeamNumber() + getEmployNumber() + " went to lunch.");
-		super.goToLunch();
-	}
-	
-	void returnToWork() {
-		System.out.println("Developer " + getTeamNumber() + getEmployNumber() + " is now working.");
-		super.returnToWork();
+		theFirm.getConfRoom().enterRoom();
+		theFirm.getConfRoom().leaveRoom();
 	}
 
 	public void run(){
