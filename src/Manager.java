@@ -20,7 +20,7 @@ public class Manager extends Employee {
 	// 10 minutes to answer a question
 			try {
 				sleep(100);
-				System.out.println( Thread.getName() + "answers TeamLead question.");
+				logAction("answered Team Leader question.");
 			}	 
 			catch (InterruptedException e) {
 				e.printStackTrace();

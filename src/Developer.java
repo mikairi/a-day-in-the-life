@@ -24,7 +24,7 @@ public class Developer extends Employee {
 	*	Ask a question to your team lead
 	*/
 	public void askTeamLeadQuestion(){
-		System.out.println("TIME Developer " + getTeamNumber() + getEmployNumber() + " asks a question.");
+		logAction("asked a question.");
 		
 		// 10 minutes to propose a question
 		try {
@@ -55,7 +55,7 @@ public class Developer extends Employee {
 		if (randGen.nextBoolean()) {
 			myLead.askManagerQuestion();
 		} else {
-			System.out.println(theFirm.getClock().formatTime() + "Developer " + getTeamNumber() + getEmployNumber() + " answered their team lead's question.");
+			logAction("answered their team leader's question.");
 			goToWork();
 		}
 	}
