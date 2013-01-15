@@ -23,13 +23,28 @@ public class TeamLeader extends Employee {
 	*	Answer a question from your team
 	*/
 	public void answerTeamQuestion(){
+
+
 		Random randGen = new Random();
 		// If true, team lead and the member go to ask the manager.
 		// Otherwise automatically answer and naturally return to work.
 		// TODO: The team member also needs to go to the manager.
 		if (randGen.nextBoolean()) {
+			System.out.println( Thread.getName() + "has to ask manager " +
+					"for help with Developer question.");
 			askManagerQuestion();
 		}
+		else{
+			// 10 minutes to answer a question
+			try {
+				sleep(100);
+				System.out.println( Thread.getName() + "answers Developer question.");
+			}	 
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}			
+		}
+
 	}
 	
 	// meeting with meam members
