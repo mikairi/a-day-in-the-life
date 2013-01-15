@@ -1,15 +1,13 @@
 import java.util.Random;
 
-
 public abstract class Employee extends Thread {
 
 	final private int NUMBER_HOURS_TO_WORK = 480;
 	
-	private int employNumber;
-	private int teamNumber;
+	protected int employNumber;
+	protected int teamNumber;
 	
-	ConferenceRoom confRoom;
-	ManagersOffice manOffice;
+	protected Firm theFirm;
 	
 	private boolean idle;
 	private boolean eatenLunch;
@@ -21,6 +19,10 @@ public abstract class Employee extends Thread {
 	private int endTime;
 	private long simulationTime;
 	
+	public Employee() {
+		super();
+	}
+
 	/**
 	 * Sets a number to reference the individual employee
 	 * @param employNumber
@@ -56,7 +58,7 @@ public abstract class Employee extends Thread {
 	/**
 	 * Specifies an employee arriving to the work place
 	 */
-	void goToWork() {
+	protected void goToWork() {
 
 		idle = false;
 
@@ -79,19 +81,22 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 
+		logAction("arrived to work.");
+		
 		returnToWork();
 	}
 
 	/**
 	 * Specifies an employee leaving the work place
 	 */
-	void goHome() {
+	protected void goHome() {
+		logAction("has left the workplace.");
 	}
 
 	/**
 	 * Specifies an employee taking their lunch break
 	 */
-	void goToLunch() {
+	protected void goToLunch() {
 
 		idle = false;
 		eatenLunch = true;
@@ -105,14 +110,25 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 		
+		logAction("went to lunch.");
+		
 		returnToWork();
 	}
 
 	/**
 	 * Set the state to an "idle" working state
 	 */
-	void returnToWork() {
+	protected void returnToWork() {
+		logAction("is now working.");
 		idle = true;
+	}
+
+	/**
+	 * Log the action of the employee to standard output.
+	 * @param verb the action the employee took, usually a verb phrase.
+	 */
+	protected void logAction(String verb) {
+		System.out.println(theFirm.getClock().formatTime() + " " + getName() + " " + verb);
 	}
 
 	public void inspire() {
