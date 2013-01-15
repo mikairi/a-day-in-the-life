@@ -26,14 +26,8 @@ public class Developer extends Employee {
 	public void askTeamLeadQuestion(){
 		logAction("asked a question.");
 		
-		// 10 minutes to propose a question
-		try {
-			sleep(100);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
 		myLead.answerTeamQuestion();
+		hasQuestion = false;
 	}
 	
 	/**

@@ -18,6 +18,7 @@ public abstract class Employee extends Thread {
 	private int lunchTime;
 	private int endTime;
 	private long simulationTime;
+	private boolean	hasQuestion = false;
 	
 	public Employee() {
 		super();
@@ -157,6 +158,6 @@ public abstract class Employee extends Thread {
 
 	public void inspire() {
 		System.out.println("I AM INSPIRED WITH ALL THINGS CONCURRENT");
-		
+		hasQuestion = true;
 	}
 }
