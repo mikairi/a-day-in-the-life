@@ -107,9 +107,100 @@ public class TeamLeader extends Employee {
 		theFirm.getManOffice().enterStandupMeeting();
 	}
 
-	public void run(){
+		public void run(){
 		sleepUntil( 480);
 		goToWork();
+		
+		int timeToStartLunch = randomNum.nextInt(120) + 660;
+		
+		goToTeamMeeting();
+		
+		// The time leading up to lunch time
+		// To avoid deadlock, Team leaders will always answer questions before they try to 
+		// ask a question. Setting the priorities in this way, the deadlock where all
+		// employees are waiting for questions to be answered is avoided. 
+		while(theFirm.getClock().getCurrTime() < timeToStartLunch) {
+			
+			if(hasQuestionForMe != null) {
+				answerNoteToQuestion();
+			}
+			else if(hasQuestion) {
+				while(hasQuestion) {
+					try {
+						sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			else {
+				try {
+					sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		goToLunch();
+		
+		// The time after lunch has finished
+		while(theFirm.getClock().getCurrTime() < 960) {
+			if(hasNote) {
+				answerNoteToQuestion();
+			}
+			else if(hasQuestion) {
+				while(hasQuestion) {
+					try {
+						sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			else {
+				try {
+					sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		goToEndOfDayMeeting();
+		
+		// The time after the final meeting until the end of day
+		while(theFirm.getClock().getCurrTime() < endTime || hasNote) {
+			if(hasNote) {
+				answerNoteToQuestion();
+			}
+			else if(hasQuestion) {
+				if(myLead.areYouHere())	{
+					while(hasQuestion) {
+						try {
+							sleep(5);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+				else {
+					logAction("developer went home, I'll ask question tomorrow");
+					hasQuestion = false;
+				}
+			}
+			else {
+				try {
+					sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		goHome();
+		
+		
 	}
 	
 }
