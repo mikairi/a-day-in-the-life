@@ -43,7 +43,7 @@ public class FirmClock {
 				if (currTime >= END_DAY + 15) {
 					stop();
 				}
-				System.out.println(currTime);
+//				System.out.println(formatTime());
 				currTime += 1;
 			}
 		};
@@ -86,7 +86,7 @@ public class FirmClock {
 	 */
 	private long[] hourMinutes() {
 		long curcurrTime = currTime;
-		long hour = (START_DAY + curcurrTime / 60) % 12;
+		long hour = (curcurrTime / 60) % 24;
 		long minutes = curcurrTime % 60;
 		long[] time = { hour, minutes };
 		return time;
@@ -95,19 +95,15 @@ public class FirmClock {
 	/**
 	 * Formatted string of the current time
 	 * 
-	 * @return a string of the current time in the form HH:MM AM/PM
+	 * @return a string of the current time in the form HH:MM
 	 */
 	public String formatTime() {
 		long[] time = hourMinutes();
-		String timeOfDay = "AM";
-		if (time[0] < START_DAY) {
-			timeOfDay = "PM";
-		}
 		if (time[0] == 0) {
 			time[0] = 12;
 		}
 
-		return String.format("%d:%02d %s", time[0], time[1], timeOfDay);
+		return String.format("%d:%02d", time[0], time[1]);
 	}
 
 }

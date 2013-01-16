@@ -28,14 +28,6 @@ public abstract class Employee extends Thread {
 		super();
 		this.theFirm = firm;
 	}
-
-	/**
-	 * Sets a number to reference the individual employee
-	 * @param employNumber
-	 */
-	public void setEmployeeNumber(int employNumber) {
-		this.employNumber = employNumber;
-	}
 	
 	/**
 	 * Gets a specified number assigned to each employee
@@ -43,14 +35,6 @@ public abstract class Employee extends Thread {
 	 */
 	public int getEmployNumber() {
 		return employNumber;
-	}
-	
-	/**
-	 * Sets the team the employee is assigned to
-	 * @param teamNumber
-	 */
-	public void setTeamNumber(int teamNumber) {
-		this.teamNumber = teamNumber;
 	}
 	
 	/**
@@ -133,7 +117,7 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 
-		logAction("arrived to work.");
+		logAction("arrives at work.");
 		
 		returnToWork();
 	}
@@ -145,7 +129,7 @@ public abstract class Employee extends Thread {
 
 		idle = false;
 		
-		logAction("went to lunch.");
+		logAction("goes to lunch.");
 		
 		// convert lunch time to simulation time
 		simulationTime = lunchTime * 10;	
@@ -157,13 +141,14 @@ public abstract class Employee extends Thread {
 		}
 
 		eatenLunch = true;
+		logAction("returns from lunch.");
 		returnToWork();
 	}
 	
 	protected void goToEndOfDayMeeting() {
-		logAction("went to project status update meeting");
+		logAction("goes to project status update meeting.");
 		theFirm.getConfRoom().attendEndOfDayMeeting();
-		logAction("meeting concluded");
+		logAction("returns from project status meeting.");
 		returnToWork();
 	}
 

@@ -11,7 +11,7 @@ public class TeamLeader extends Employee {
 	// Group of employees on this Team Leader's team
 	private ArrayList<Developer> myTeam = new ArrayList<Developer>();
 	
-	private CyclicBarrier smallTeamConference = new CyclicBarrier(4);
+	private CyclicBarrier smallTeamConference = new CyclicBarrier(3);
 	
 	// This team leader's manager
 	private Manager myManager;
@@ -19,11 +19,12 @@ public class TeamLeader extends Employee {
 	public TeamLeader(int teamNumber, Manager manager, Firm firm) {
 		super(firm);
 		this.teamNumber = teamNumber;
+		this.employNumber = 1;
 		this.myManager = manager;
 		
 		// Add self to manager's list of team leaders
 		myManager.addTeamLeader(this);
-		setName("Team Leader " + getTeamNumber());
+		setName("Developer " + getTeamNumber() + getEmployNumber());
 	}
 	
 	public CyclicBarrier getSmallTeamConference() {
@@ -51,7 +52,7 @@ public class TeamLeader extends Employee {
 		// Otherwise automatically answer and naturally return to work.
 		// TODO: The team member also needs to go to the manager.
 		if (randGen.nextBoolean()) {
-			logAction("asked manager for help with Developer question.");
+			logAction("asks manager for help with Developer question.");
 			askManagerQuestion();
 		}
 		
@@ -79,7 +80,7 @@ public class TeamLeader extends Employee {
 			}
 		}
 		
-		logAction("started team meeting");
+		logAction("starts team meeting.");
 		
 		try {
 			sleep(150);
@@ -87,7 +88,7 @@ public class TeamLeader extends Employee {
 			e.printStackTrace();
 		}
 		
-		logAction("team meeting ended");
+		logAction("ends team meeting.");
 		
 		theFirm.getConfRoom().leaveRoom();
 		
@@ -95,10 +96,8 @@ public class TeamLeader extends Employee {
 			// cyclic half-barrier
 			smallTeamConference.await();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BrokenBarrierException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
