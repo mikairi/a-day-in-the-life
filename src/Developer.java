@@ -8,7 +8,7 @@ public class Developer extends Employee {
 	*/
 	
 	// This developer's team leader
-	private final TeamLeader myLead;
+	private  TeamLeader myLead;
 	
 	public Developer(int teamNumber, int employNumber, TeamLeader lead, Firm firm) {
 		super(firm);
@@ -27,32 +27,23 @@ public class Developer extends Employee {
 	public void askTeamLeadQuestion(){
 		logAction("asked a question.");
 		
-		myLead.answerTeamQuestion();
-		hasQuestion = false;
+		myLead.leaveNote(this);
 	}
 	
 	/**
 	*	Answer a question from your team lead
 	*/
-	public void answerTeamLeadQuestion(){
+	public void answerTeamLeadersQuestion(){
 
-		logAction("Team Lead asks Developer a question");
+		logAction("answers his team lead's question");
 		// 10 minutes to answer a question
 		try {
 			sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
-		Random randGen = new Random();
-		// If false, team lead and the member go to ask the manager;
-		// otherwise answer and naturally return to work.
-		if (randGen.nextBoolean()) {
-			myLead.askManagerQuestion();
-		} else {
-			logAction("answered their team leader's question.");
-			goToWork();
-		}
+		myLead.gotQuestionAnswered();
+		hasQuestionForMe = null;
 	}
 	
 	// meeting with other devs and team lead
@@ -86,6 +77,7 @@ public class Developer extends Employee {
 				answerNoteToQuestion();
 			}
 			else if(hasQuestion) {
+				askTeamLeadquestion();
 				while(hasQuestion) {
 					try {
 						sleep(5);

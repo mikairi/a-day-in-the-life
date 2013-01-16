@@ -12,7 +12,7 @@ public abstract class Employee extends Thread {
 	protected Firm theFirm;
 	
 	private boolean idle = false;
-	private boolean eatenLunch;
+	private boolean eatenLunch = false;
 	private boolean hasGoneHome = false;
 
 	protected Random randomNum = new Random();
@@ -96,6 +96,7 @@ public abstract class Employee extends Thread {
 	*
 	*	@param time    Time to sleep until
 	*/
+	
 
 	void sleepUntil(long time){
 		while( theFirm.getClock().getCurrTime() < time ){
