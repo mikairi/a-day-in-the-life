@@ -38,8 +38,9 @@ public class TeamLeader extends Employee {
 	*	Ask a question to your manager
 	*/
 	public void askManagerQuestion(){
-		theFirm.getManOffice().enterforQuestion();
-		hasQuestion = false;
+		hasQuestion = true;
+		logAction("asked manager a question");
+		myManager.leaveNote(this);
 	}
 	
 	/**
@@ -103,10 +104,22 @@ public class TeamLeader extends Employee {
 		}
 	}
 	
-	// meeting with other team leads and manager
-	public void goToStandup(){
-		theFirm.getManOffice().enterStandupMeeting();
+	public void attendStandup() {
+		logAction("goes to leader standup meeting");
+		
+		try {
+			myManager.getMorningTeamLeadStandup().await();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BrokenBarrierException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		logAction("returns from leader standup meeting");
 	}
+	
 
 		public void run(){
 		sleepUntil( 480);
@@ -114,7 +127,11 @@ public class TeamLeader extends Employee {
 		
 		int timeToStartLunch = randomNum.nextInt(120) + 660;
 		
-		goToTeamMeeting();
+		// Go to standup meeting with the other team leads and manager
+		attendStandup();
+		
+		// Begin their routine team meeting
+		startTeamMeeting();
 		
 		// The time leading up to lunch time
 		// To avoid deadlock, Team leaders will always answer questions before they try to 
@@ -123,9 +140,31 @@ public class TeamLeader extends Employee {
 		while(theFirm.getClock().getCurrTime() < timeToStartLunch) {
 			
 			if(hasQuestionForMe != null) {
-				answerNoteToQuestion();
+				if(randomNum.nextBoolean()) {
+					answerNoteToQuestion();
+				}
+				else {
+					if(myManager.getIsManagerBusy()) {
+						logAction("manager is busy, team leader made up an answer");
+						answerNoteToQuestion();
+					}
+					else {
+						askManagerQuestion();
+						while(hasQuestion) {
+							try {
+								sleep(5);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}						
+						answerNoteToQuestion();
+					}
+				}
+					
 			}
 			else if(hasQuestion) {
+				int personToAsk = randomNum.nextInt(myTeam.size());
+				myTeam.get(personToAsk).leaveNote(this);
 				while(hasQuestion) {
 					try {
 						sleep(5);
@@ -147,10 +186,32 @@ public class TeamLeader extends Employee {
 		
 		// The time after lunch has finished
 		while(theFirm.getClock().getCurrTime() < 960) {
-			if(hasNote) {
-				answerNoteToQuestion();
+			if(hasQuestionForMe != null) {
+				if(randomNum.nextBoolean()) {
+					answerNoteToQuestion();
+				}
+				else {
+					if(myManager.getIsManagerBusy()) {
+						logAction("manager is busy, team leader made up an answer");
+						answerNoteToQuestion();
+					}
+					else {
+						askManagerQuestion();
+						while(hasQuestion) {
+							try {
+								sleep(5);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}						
+						answerNoteToQuestion();
+					}
+				}
+					
 			}
 			else if(hasQuestion) {
+				int personToAsk = randomNum.nextInt(myTeam.size());
+				myTeam.get(personToAsk).leaveNote(this);
 				while(hasQuestion) {
 					try {
 						sleep(5);
@@ -171,23 +232,46 @@ public class TeamLeader extends Employee {
 		goToEndOfDayMeeting();
 		
 		// The time after the final meeting until the end of day
-		while(theFirm.getClock().getCurrTime() < endTime || hasNote) {
-			if(hasNote) {
-				answerNoteToQuestion();
-			}
-			else if(hasQuestion) {
-				if(myLead.areYouHere())	{
-					while(hasQuestion) {
-						try {
-							sleep(5);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
+		while(theFirm.getClock().getCurrTime() < endTime || hasQuestionForMe != null) {
+			if(hasQuestionForMe != null) {
+				if(randomNum.nextBoolean()) {
+					answerNoteToQuestion();
 				}
 				else {
+					if(myManager.getIsManagerBusy()) {
+						logAction("manager is busy, team leader made up an answer");
+						answerNoteToQuestion();
+					}
+					else {
+						askManagerQuestion();
+						while(hasQuestion) {
+							try {
+								sleep(5);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}						
+						answerNoteToQuestion();
+					}
+				}					
+			}
+			
+			else if(hasQuestion) {
+				int personToAsk = randomNum.nextInt(myTeam.size());
+				if(myTeam.get(personToAsk).areYouHere()){
+					myTeam.get(personToAsk).leaveNote(this);
+				}
+				else
+				{
 					logAction("developer went home, I'll ask question tomorrow");
 					hasQuestion = false;
+				}
+				while(hasQuestion) {
+					try {
+						sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			else {

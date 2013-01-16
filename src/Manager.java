@@ -1,8 +1,12 @@
 import java.util.*;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 public class Manager extends Employee {
 
 	private ArrayList<TeamLeader> myLeads = new ArrayList<TeamLeader>();
+	private CyclicBarrier morningTeamLeadStandup = new CyclicBarrier(4);
+	private boolean isBusy = true;
 	
 	public Manager(Firm firm) {
 		super(firm);
@@ -12,6 +16,16 @@ public class Manager extends Employee {
 	public synchronized void addTeamLeader(TeamLeader lead) {
 		myLeads.add(lead);
 	}
+	
+	public boolean getIsManagerBusy() {
+		return isBusy;
+	}
+	
+	public CyclicBarrier getMorningTeamLeadStandup()
+	{
+		return morningTeamLeadStandup;
+	}
+
 	
 	/**
 	*	Answer a question from your team lead
