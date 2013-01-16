@@ -73,11 +73,11 @@ public class Developer extends Employee {
 		// The time leading up to lunch time
 		while(theFirm.getClock().getCurrTime() < timeToStartLunch) {
 			// Needed to implement this note logic to avoid deadlock (see documentation)
-			if(hasNote) {
+			if(hasQuestionForMe != null) {
 				answerNoteToQuestion();
 			}
 			else if(hasQuestion) {
-				askTeamLeadquestion();
+				askTeamLeadQuestion();
 				while(hasQuestion) {
 					try {
 						sleep(5);
@@ -99,7 +99,7 @@ public class Developer extends Employee {
 		
 		// The time after lunch has finished
 		while(theFirm.getClock().getCurrTime() < 960) {
-			if(hasNote) {
+			if(hasQuestionForMe != null) {
 				answerNoteToQuestion();
 			}
 			else if(hasQuestion) {
@@ -123,8 +123,8 @@ public class Developer extends Employee {
 		goToEndOfDayMeeting();
 		
 		// The time after the final meeting until the end of day
-		while(theFirm.getClock().getCurrTime() < endTime || hasNote) {
-			if(hasNote) {
+		while(theFirm.getClock().getCurrTime() < endTime || hasQuestionForMe != null) {
+			if(hasQuestionForMe != null) {
 				answerNoteToQuestion();
 			}
 			else if(hasQuestion) {

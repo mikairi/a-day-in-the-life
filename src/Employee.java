@@ -7,7 +7,7 @@ public abstract class Employee extends Thread {
 	protected int employNumber;
 	protected int teamNumber;
 	
-	protected Developer hasQuestionForMe = null;
+	protected Employee hasQuestionForMe = null;
 	
 	protected Firm theFirm;
 	
@@ -21,7 +21,6 @@ public abstract class Employee extends Thread {
 	private int lunchTime;
 	protected int endTime;
 	private long simulationTime;
-	protected boolean hasNote = false;
 	protected boolean hasQuestion = false;
 	
 	public Employee(Firm firm) {
@@ -49,8 +48,8 @@ public abstract class Employee extends Thread {
 		return !hasGoneHome;
 	}
 	
-	public void leaveNote(Developer dev) {
-		hasQuestionForMe = dev;
+	public void leaveNote(Employee emp) {
+		hasQuestionForMe = emp;
 	}
 	
 	public void answerNoteToQuestion() {
