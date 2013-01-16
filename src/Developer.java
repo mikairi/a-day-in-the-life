@@ -10,8 +10,8 @@ public class Developer extends Employee {
 	// This developer's team leader
 	private final TeamLeader myLead;
 	
-	public Developer(int teamNumber, int employNumber, TeamLeader lead) {
-		super();
+	public Developer(int teamNumber, int employNumber, TeamLeader lead, Firm firm) {
+		super(firm);
 		this.teamNumber = teamNumber;
 		this.employNumber = employNumber;
 		this.myLead = lead;
@@ -35,8 +35,8 @@ public class Developer extends Employee {
 	*	Answer a question from your team lead
 	*/
 	public void answerTeamLeadQuestion(){
+
 		logAction("Team Lead asks Developer a question");
-	
 		// 10 minutes to answer a question
 		try {
 			sleep(100);

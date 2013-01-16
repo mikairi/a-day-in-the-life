@@ -24,8 +24,9 @@ public abstract class Employee extends Thread {
 	protected boolean hasNote = false;
 	protected boolean hasQuestion = false;
 	
-	public Employee() {
+	public Employee(Firm firm) {
 		super();
+		this.theFirm = firm;
 	}
 
 	/**
