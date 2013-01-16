@@ -1,7 +1,11 @@
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+
 public class Firm {
 	private final FirmClock clock;
 	private final ConferenceRoom confRoom;
 	private final ManagersOffice manOffice;
+	private CyclicBarrier goneHome = new CyclicBarrier(13);
 	
 	public Firm() {
 		clock = new FirmClock();
@@ -23,5 +27,19 @@ public class Firm {
 
 	public void startDay() {
 		clock.start();
+	}
+	
+	public void leaveFirm() {
+		try {
+			goneHome.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (BrokenBarrierException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public CyclicBarrier getGoneHome() {
+		return goneHome;
 	}
 }

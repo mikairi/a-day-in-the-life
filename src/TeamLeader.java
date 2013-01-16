@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 public class TeamLeader extends Employee {
 
@@ -8,6 +10,8 @@ public class TeamLeader extends Employee {
 	
 	// Group of employees on this Team Leader's team
 	private ArrayList<Developer> myTeam = new ArrayList<Developer>();
+	
+	private CyclicBarrier smallTeamConference = new CyclicBarrier(4);
 	
 	// This team leader's manager
 	private Manager myManager;
@@ -20,6 +24,10 @@ public class TeamLeader extends Employee {
 		// Add self to manager's list of team leaders
 		myManager.addTeamLeader(this);
 		setName("Team Leader " + getTeamNumber());
+	}
+	
+	public CyclicBarrier getSmallTeamConference() {
+		return smallTeamConference;
 	}
 	
 	public synchronized void addTeamMember(Developer member) {
@@ -59,9 +67,47 @@ public class TeamLeader extends Employee {
 		}
 	}
 	
-	// meeting with meam members
+	// meeting with team members
 	public void startTeamMeeting(){
-		theFirm.getConfRoom().enterRoom();
+		while(smallTeamConference.getNumberWaiting() < 3)
+		{
+			try {
+				sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		while(!theFirm.getConfRoom().canEnter()) {
+			try {
+				sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		logAction("started team meeting");
+		
+		try {
+			sleep(150);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		logAction("team meeting ended");
+		
+		theFirm.getConfRoom().leaveRoom();
+		
+		try {
+			// cyclic half-barrier
+			smallTeamConference.await();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BrokenBarrierException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	// meeting with other team leads and manager

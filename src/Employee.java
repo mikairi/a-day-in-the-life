@@ -13,6 +13,7 @@ public abstract class Employee extends Thread {
 	
 	private boolean idle = false;
 	private boolean eatenLunch;
+	private boolean hasGoneHome = false;
 
 	protected Random randomNum = new Random();
 	
@@ -57,6 +58,10 @@ public abstract class Employee extends Thread {
 	 */
 	public int getTeamNumber() {
 		return teamNumber;
+	}
+	
+	public boolean areYouHere(){
+		return !hasGoneHome;
 	}
 	
 	public void leaveNote(Developer dev) {
@@ -166,6 +171,7 @@ public abstract class Employee extends Thread {
 	 */
 	protected void goHome() {
 		logAction("has left the workplace.");
+		theFirm.leaveFirm();
 	}
 
 	/**

@@ -29,7 +29,6 @@ public class Manager extends Employee {
 
 	// meeting with team leads
 	public void startStandUp(){
-
 		// 15 minutes for stand-up meeting 
 		try {
 			System.out.println("TIME " + Thread.currentThread().getName() + " engages in morning stand-up meeting with TeamLeads.");

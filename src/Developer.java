@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.BrokenBarrierException;
 
 public class Developer extends Employee {
 
@@ -34,7 +35,7 @@ public class Developer extends Employee {
 	*	Answer a question from your team lead
 	*/
 	public void answerTeamLeadQuestion(){
-		System.out.println("TIME Team leader asks developer " + getTeamNumber() + getEmployNumber() + " a questions");
+		logAction("Team Lead asks Developer a question");
 	
 		// 10 minutes to answer a question
 		try {
@@ -56,8 +57,18 @@ public class Developer extends Employee {
 	
 	// meeting with other devs and team lead
 	public void goToTeamMeeting(){
-		theFirm.getConfRoom().enterRoom();
-		theFirm.getConfRoom().leaveRoom();
+		
+		logAction("goes to team meeting");
+		
+		try {
+			myLead.getSmallTeamConference().await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (BrokenBarrierException e) {
+			e.printStackTrace();
+		}
+		
+		logAction("returns from team meeting");
 	}
 
 	public void run(){
@@ -65,6 +76,8 @@ public class Developer extends Employee {
 		goToWork();
 		
 		int timeToStartLunch = randomNum.nextInt(120) + 660;
+		
+		goToTeamMeeting();
 		
 		// The time leading up to lunch time
 		while(theFirm.getClock().getCurrTime() < timeToStartLunch) {
@@ -123,12 +136,18 @@ public class Developer extends Employee {
 				answerNoteToQuestion();
 			}
 			else if(hasQuestion) {
-				while(hasQuestion) {
-					try {
-						sleep(5);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+				if(myLead.areYouHere())	{
+					while(hasQuestion) {
+						try {
+							sleep(5);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
+				}
+				else {
+					logAction("team leader went home, I'll ask question tomorrow");
+					hasQuestion = false;
 				}
 			}
 			else {
@@ -139,6 +158,8 @@ public class Developer extends Employee {
 				}
 			}
 		}
+		
+		goHome();
 		
 		
 	}
