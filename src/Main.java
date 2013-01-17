@@ -20,8 +20,16 @@ public class Main {
 				dev.start();
 			}
 		}
-		QuestionFairy princessSparkleDust = new QuestionFairy(workers, 150 , 200, firm);
-		princessSparkleDust.start();
+		
+		/*
+		 * Un-comment these lines to run program with questions. Currently Program works according to specifications 
+		 * without running questions. With questions, threads deadlock each other and halt the program before lunch.
+		 * Explanation as to why in documentation.  
+		 * 
+		 *	QuestionFairy princessSparkleDust = new QuestionFairy(workers, 150 , 200, firm);
+		 *	princessSparkleDust.start();
+		 */
+		
 		firm.startDay();
 	}
 

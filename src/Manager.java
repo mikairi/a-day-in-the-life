@@ -14,6 +14,7 @@ public class Manager extends Employee {
 	public Manager(Firm firm) {
 		super(firm);
 		setName("Manager");
+		hasQuestionForMe = new ArrayList<Employee>();
 	}
 
 	public synchronized void addTeamLeader(TeamLeader lead) {
@@ -117,7 +118,7 @@ public class Manager extends Employee {
 		hostMorningStandup();
 		
 		while(theFirm.getClock().getCurrTime() < morningMeeting) {
-			if(hasQuestionForMe != null) {
+			if(hasQuestionForMe.size() != 0) {
 				answerNoteToQuestion();				
 				logAction("answered team leader's question");
 			}
@@ -140,7 +141,7 @@ public class Manager extends Employee {
 		isBusy = false;
 		
 		while(theFirm.getClock().getCurrTime() < timeToStartLunch) {
-			if(hasQuestionForMe != null) {
+			if(hasQuestionForMe.size() != 0) {
 				answerNoteToQuestion();				
 				logAction("answered team leader's question");
 			}
@@ -163,7 +164,7 @@ public class Manager extends Employee {
 		isBusy = false;
 		
 		while(theFirm.getClock().getCurrTime() < afternoonMeeting) {
-			if(hasQuestionForMe != null) {
+			if(hasQuestionForMe.size() != 0) {
 				answerNoteToQuestion();				
 				logAction("answered team leader's question");
 			}
@@ -186,7 +187,7 @@ public class Manager extends Employee {
 		isBusy = false;
 		
 		while(theFirm.getClock().getCurrTime() < 960) {
-			if(hasQuestionForMe != null) {
+			if(hasQuestionForMe.size() != 0) {
 				answerNoteToQuestion();				
 				logAction("answered team leader's question");
 			}
@@ -200,7 +201,7 @@ public class Manager extends Employee {
 		}
 		hostEndOfDayMeeting();
 		while(theFirm.getGoneHome().getNumberWaiting() < 12  ) {
-			if(hasQuestionForMe != null) {
+			if(hasQuestionForMe.size() != 0) {
 				answerNoteToQuestion();				
 				logAction("answered team leader's question");
 			}

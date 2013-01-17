@@ -26,6 +26,7 @@ public class TeamLeader extends Employee {
 		// Add self to manager's list of team leaders
 		myManager.addTeamLeader(this);
 		setName("Developer " + getTeamNumber() + getEmployNumber());
+		hasQuestionForMe = new ArrayList<Employee>();
 	}
 
 	public CyclicBarrier getSmallTeamConference() {
@@ -137,15 +138,14 @@ public class TeamLeader extends Employee {
 		// employees are waiting for questions to be answered is avoided. 
 		while (theFirm.getClock().getCurrTime() < timeToStartLunch) {
 
-			if (hasQuestionForMe != null) {
+			if (hasQuestionForMe.size() != 0) {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();
 				} else {
-					//System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+					
 					if (myManager.getIsManagerBusy()) {
 						logAction("manager is busy, team leader made up an answer");
 						answerNoteToQuestion();
-						//System.out.println("((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((");
 					} else {
 						askManagerQuestion();
 						while (hasQuestion) {
@@ -183,8 +183,8 @@ public class TeamLeader extends Employee {
 		goToLunch();
 
 		// The time after lunch has finished
-		while (theFirm.getClock().getCurrTime() < 960) {
-			if (hasQuestionForMe != null) {
+		while (theFirm.getClock().getCurrTime() < 960 ) {
+			if (hasQuestionForMe.size() != 0) {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();
 				} else {
@@ -226,9 +226,8 @@ public class TeamLeader extends Employee {
 		goToEndOfDayMeeting();
 
 		// The time after the final meeting until the end of day
-		while (theFirm.getClock().getCurrTime() < endTime
-				|| hasQuestionForMe != null) {
-			if (hasQuestionForMe != null) {
+		while (theFirm.getClock().getCurrTime() < endTime || hasQuestionForMe.size() != 0){
+			if (hasQuestionForMe.size() != 0) {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();
 				} else {
