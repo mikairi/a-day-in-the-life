@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -11,7 +12,7 @@ public abstract class Employee extends Thread {
 	protected int employNumber;
 	protected int teamNumber;
 	
-	protected Employee hasQuestionForMe = null;
+	protected ArrayList<Employee> hasQuestionForMe = null;
 	
 	protected Firm theFirm;
 	
@@ -51,7 +52,7 @@ public abstract class Employee extends Thread {
 	}
 	
 	public void leaveNote(Employee emp) {
-		hasQuestionForMe = emp;
+		hasQuestionForMe.add(emp);
 	}
 	
 	public void answerNoteToQuestion() {
@@ -63,14 +64,15 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 		
-		hasQuestionForMe.gotQuestionAnswered();		
-		hasQuestionForMe = null;
+		hasQuestionForMe.get(0).gotQuestionAnswered();	
+		hasQuestionForMe.remove(0);
 		
 		logAction("answered question");
 	}
 	
 	public void gotQuestionAnswered() {
 		hasQuestion = false;
+		logAction("got question answered");
 	}
 
 
@@ -170,7 +172,7 @@ public abstract class Employee extends Thread {
 	}
 
 	public void inspire() {
-		System.out.println("I AM INSPIRED WITH ALL THINGS CONCURRENT");
+		logAction("I AM INSPIRED WITH ALL THINGS CONCURRENT");
 		hasQuestion = true;
 	}
 }

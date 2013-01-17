@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.concurrent.BrokenBarrierException;
 
 public class Developer extends Employee {
@@ -13,6 +14,7 @@ public class Developer extends Employee {
 		// Add self to team leader's team
 		myLead.addTeamMember(this);
 		setName("Developer " + getTeamNumber() + getEmployNumber());
+		hasQuestionForMe = new ArrayList<Employee>();
 	}
 
 	/**
@@ -37,7 +39,7 @@ public class Developer extends Employee {
 			e.printStackTrace();
 		}
 		myLead.gotQuestionAnswered();
-		hasQuestionForMe = null;
+		hasQuestionForMe.remove(0);
 	}
 
 	/**
@@ -69,7 +71,7 @@ public class Developer extends Employee {
 		// The time leading up to lunch time
 		while(theFirm.getClock().getCurrTime() < timeToStartLunch) {
 			// Needed to implement this note logic to avoid deadlock (see documentation)
-			if (hasQuestionForMe != null) {
+			if (hasQuestionForMe.size() != 0) {
 				answerNoteToQuestion();
 			} else if (hasQuestion) {
 				askTeamLeadQuestion();
@@ -93,7 +95,7 @@ public class Developer extends Employee {
 
 		// The time after lunch has finished
 		while (theFirm.getClock().getCurrTime() < 960) {
-			if (hasQuestionForMe != null) {
+			if (hasQuestionForMe.size() != 0) {
 				answerNoteToQuestion();
 			} else if (hasQuestion) {
 				while (hasQuestion) {
@@ -115,8 +117,8 @@ public class Developer extends Employee {
 		goToEndOfDayMeeting();
 		
 		// The time after the final meeting until the end of day
-		while(theFirm.getClock().getCurrTime() < endTime || hasQuestionForMe != null) {
-			if (hasQuestionForMe != null) {
+		while(theFirm.getClock().getCurrTime() < endTime || hasQuestionForMe.size() != 0) {
+			if (hasQuestionForMe.size() != 0) {
 				answerNoteToQuestion();
 			} else if (hasQuestion) {
 				if (myLead.areYouHere()) {

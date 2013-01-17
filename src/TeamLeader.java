@@ -21,6 +21,7 @@ public class TeamLeader extends Employee {
 		// Add self to manager's list of team leaders
 		myManager.addTeamLeader(this);
 		setName("Developer " + getTeamNumber() + getEmployNumber());
+		hasQuestionForMe = new ArrayList<Employee>();
 	}
 
 	public CyclicBarrier getSmallTeamConference() {
@@ -128,16 +129,16 @@ public class TeamLeader extends Employee {
 
 		// The time leading up to lunch time
 		// To avoid deadlock, Team leaders will always answer questions before
-		// they try to
-		// ask a question. Setting the priorities in this way, the deadlock
-		// where all
-		// employees are waiting for questions to be answered is avoided.
+		// they try to ask a question. Setting the priorities in this way, the
+		// deadlock where all employees are waiting for questions to be
+		// answered is avoided.
 		while (theFirm.getClock().getCurrTime() < timeToStartLunch) {
 
-			if (hasQuestionForMe != null) {
+			if (hasQuestionForMe.size() != 0) {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();
 				} else {
+
 					if (myManager.getIsManagerBusy()) {
 						logAction("manager is busy, team leader made up an answer");
 						answerNoteToQuestion();
@@ -164,6 +165,8 @@ public class TeamLeader extends Employee {
 						e.printStackTrace();
 					}
 				}
+				// System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+
 			} else {
 				try {
 					sleep(10);
@@ -177,7 +180,7 @@ public class TeamLeader extends Employee {
 
 		// The time after lunch has finished
 		while (theFirm.getClock().getCurrTime() < 960) {
-			if (hasQuestionForMe != null) {
+			if (hasQuestionForMe.size() != 0) {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();
 				} else {
@@ -220,8 +223,8 @@ public class TeamLeader extends Employee {
 
 		// The time after the final meeting until the end of day
 		while (theFirm.getClock().getCurrTime() < endTime
-				|| hasQuestionForMe != null) {
-			if (hasQuestionForMe != null) {
+				|| hasQuestionForMe.size() != 0) {
+			if (hasQuestionForMe.size() != 0) {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();
 				} else {
