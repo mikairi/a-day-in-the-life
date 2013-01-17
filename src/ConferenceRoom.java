@@ -1,37 +1,32 @@
-import java.util.LinkedList;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
-/*
- * The point of this program is to simulate a room that regulates when a 
- * team can come in to meet.
+/**
+ * The point of this program is to simulate a room that regulates when a team
+ * can come in to meet.
  */
 public class ConferenceRoom {
-	
-	private int numEmployees = 0;
-	private LinkedList<Integer> waitingTeams = new LinkedList<Integer>();
-	private CyclicBarrier startMeeting = new CyclicBarrier(4);
-	private CyclicBarrier endOfDayMeeting = new CyclicBarrier(13); //12 for debugging purpose
+
+	private CyclicBarrier endOfDayMeeting = new CyclicBarrier(13);
 	private boolean isEmpty = true;
-		
+
 	public synchronized boolean canEnter() {
-		if(isEmpty) {
+		if (isEmpty) {
 			isEmpty = false;
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
-	
+
 	public void leaveRoom() {
 		isEmpty = true;
 	}
-	
-	public CyclicBarrier getendOfDayMeetingBarrier(){
+
+	public CyclicBarrier getEndOfDayMeetingBarrier() {
 		return endOfDayMeeting;
 	}
-	
+
 	public void attendEndOfDayMeeting() {
 		try {
 			endOfDayMeeting.await();
@@ -41,6 +36,6 @@ public class ConferenceRoom {
 		} catch (BrokenBarrierException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }

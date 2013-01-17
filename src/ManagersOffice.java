@@ -12,48 +12,47 @@ import java.util.concurrent.CyclicBarrier;
 public class ManagersOffice {
 
 	private CyclicBarrier standupMeeting = new CyclicBarrier(4);
-	
-	public synchronized void enterStandupMeeting(){
+
+	public synchronized void enterStandupMeeting() {
 		numEmployees++;
 		try {
 			standupMeeting.await();
 			wait(150);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}catch (BrokenBarrierException e1) {
-			e1.printStackTrace();
+		} catch (BrokenBarrierException e) {
+			e.printStackTrace();
 		}
 		numEmployees--;
 	}
-	
-	//-------------------------------------------------------------------
-	
+
+	// -------------------------------------------------------------------
+
 	private int numEmployees = 0;
 	private LinkedList<Integer> waitingTeams = new LinkedList<Integer>();
 	private boolean managerIsIn = false;
-	
+
 	/**
 	 * Requests to enter room to ask question, and waits if cant
 	 */
-	public synchronized void enterforQuestion(){
-		Employee employee = (Employee)Thread.currentThread();
-		
-		//if the team number isnt registered, register it.
-		if(!waitingTeams.contains(employee.getTeamNumber())){
+	public synchronized void enterforQuestion() {
+		Employee employee = (Employee) Thread.currentThread();
+
+		// if the team number isnt registered, register it.
+		if (!waitingTeams.contains(employee.getTeamNumber())) {
 			waitingTeams.add(employee.getTeamNumber());
 		}
 
-		//wait if the employee team number isnt same as those in room
-		while(waitingTeams.peek() != employee.getTeamNumber() && managerIsIn){
-			try{
+		// wait if the employee team number isnt same as those in room
+		while (waitingTeams.peek() != employee.getTeamNumber() && managerIsIn) {
+			try {
 				wait();
-			}
-			catch(InterruptedException e){
+			} catch (InterruptedException e) {
 				System.err.println(e.getMessage());
 			}
 		}
 		numEmployees++;
-		//ask the question for 10 minutes
+		// ask the question for 10 minutes
 		try {
 			wait(100);
 		} catch (InterruptedException e) {
@@ -61,25 +60,24 @@ public class ManagersOffice {
 		}
 		leaveRoom();
 	}
-	
-	public synchronized void managerEnter(){
+
+	public synchronized void managerEnter() {
 		managerIsIn = true;
 	}
 
-	public synchronized void managerLeave(){
+	public synchronized void managerLeave() {
 		managerIsIn = false;
 	}
-	
-	
-	//--private methods----
-	
+
+	// --private methods----
+
 	/**
 	 * An employee leaves the room. If there are none left in the room then
 	 * other teams can take over.
 	 */
-	private synchronized void leaveRoom(){
+	private synchronized void leaveRoom() {
 		numEmployees--;
-		if(numEmployees == 0){
+		if (numEmployees == 0) {
 			waitingTeams.remove();
 		}
 		notifyAll();

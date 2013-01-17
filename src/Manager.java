@@ -7,10 +7,12 @@ public class Manager extends Employee {
 	private ArrayList<TeamLeader> myLeads = new ArrayList<TeamLeader>();
 	private CyclicBarrier morningTeamLeadStandup = new CyclicBarrier(4);
 	//private CyclicBarrier endOfDayMeeting = new CyclicBarrier(13);
+	
+	// Manager not available in office
 	private boolean isBusy = true;
 	private int morningMeeting = 660;
 	private int afternoonMeeting = 840;
-	
+
 	public Manager(Firm firm) {
 		super(firm);
 		setName("Manager");
@@ -29,7 +31,7 @@ public class Manager extends Employee {
 	}
 
 	/**
-	 * Answer a question from your team lead
+	 * Answer a question from my team lead.
 	 */
 	public void answerTeamLeadQuestion() {
 		// 10 minutes to answer a question
@@ -41,86 +43,86 @@ public class Manager extends Employee {
 		}
 	}
 
-	// meeting with team leads
+	/**
+	 * Meeting with team leads.
+	 */
 	public void hostMorningStandup() {
-		while(morningTeamLeadStandup.getNumberWaiting() < 3) {
+		while (morningTeamLeadStandup.getNumberWaiting() < 3) {
 			try {
-				
+
 				sleep(5);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		logAction("started morning leader meeting");
-		
+
 		try {
 			sleep(150);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		logAction("ended leader meeting");
 		try {
 			// cyclic half-barrier
 			morningTeamLeadStandup.await();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BrokenBarrierException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * End of day meeting with all employees.
+	 */
 	public void hostEndOfDayMeeting() {
-		while(theFirm.getConfRoom().getendOfDayMeetingBarrier().getNumberWaiting() < 12) {
+		while(theFirm.getConfRoom().getEndOfDayMeetingBarrier().getNumberWaiting() < 12) {
 			try {
 				sleep(5);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		logAction("started end of day status meeting");
-		
+
 		try {
 			sleep(150);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		logAction("status meeting ended");
-		
+
 		try {
 			// cyclic half-barrier
-			theFirm.getConfRoom().getendOfDayMeetingBarrier().await();
+			theFirm.getConfRoom().getEndOfDayMeetingBarrier().await();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BrokenBarrierException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public void run(){
-		
-		sleepUntil(480);		
+
+	public void run() {
+
+		sleepUntil(480);
 		logAction("arrived at work");
-		
+
 		int timeToStartLunch = 720;
-		int timeToEndLunch = 780;
+		// int timeToEndLunch = 780;
 		isBusy = false;
-		
+
 		hostMorningStandup();
-		
-		while(theFirm.getClock().getCurrTime() < morningMeeting) {
-			if(hasQuestionForMe != null) {
-				answerNoteToQuestion();				
+
+		while (theFirm.getClock().getCurrTime() < morningMeeting) {
+			if (hasQuestionForMe != null) {
+				answerNoteToQuestion();
 				logAction("answered team leader's question");
-			}
-			else {
+			} else {
 				try {
 					sleep(10);
 				} catch (InterruptedException e) {
@@ -128,7 +130,7 @@ public class Manager extends Employee {
 				}
 			}
 		}
-		
+
 		// Go to morning executive meeting
 		isBusy = true;
 		try {
@@ -137,13 +139,12 @@ public class Manager extends Employee {
 			e.printStackTrace();
 		}
 		isBusy = false;
-		
-		while(theFirm.getClock().getCurrTime() < timeToStartLunch) {
-			if(hasQuestionForMe != null) {
-				answerNoteToQuestion();				
+
+		while (theFirm.getClock().getCurrTime() < timeToStartLunch) {
+			if (hasQuestionForMe != null) {
+				answerNoteToQuestion();
 				logAction("answered team leader's question");
-			}
-			else {
+			} else {
 				try {
 					sleep(10);
 				} catch (InterruptedException e) {
@@ -151,7 +152,7 @@ public class Manager extends Employee {
 				}
 			}
 		}
-		
+
 		// Go to lunch
 		isBusy = true;
 		try {
@@ -160,13 +161,12 @@ public class Manager extends Employee {
 			e.printStackTrace();
 		}
 		isBusy = false;
-		
-		while(theFirm.getClock().getCurrTime() < afternoonMeeting) {
-			if(hasQuestionForMe != null) {
-				answerNoteToQuestion();				
+
+		while (theFirm.getClock().getCurrTime() < afternoonMeeting) {
+			if (hasQuestionForMe != null) {
+				answerNoteToQuestion();
 				logAction("answered team leader's question");
-			}
-			else {
+			} else {
 				try {
 					sleep(10);
 				} catch (InterruptedException e) {
@@ -174,7 +174,7 @@ public class Manager extends Employee {
 				}
 			}
 		}
-		
+
 		// Go to afternoon executive meeting
 		isBusy = true;
 		try {
@@ -183,13 +183,12 @@ public class Manager extends Employee {
 			e.printStackTrace();
 		}
 		isBusy = false;
-		
-		while(theFirm.getClock().getCurrTime() < 960) {
-			if(hasQuestionForMe != null) {
-				answerNoteToQuestion();				
+
+		while (theFirm.getClock().getCurrTime() < 960) {
+			if (hasQuestionForMe != null) {
+				answerNoteToQuestion();
 				logAction("answered team leader's question");
-			}
-			else {
+			} else {
 				try {
 					sleep(10);
 				} catch (InterruptedException e) {
@@ -198,12 +197,11 @@ public class Manager extends Employee {
 			}
 		}
 		hostEndOfDayMeeting();
-		while(theFirm.getGoneHome().getNumberWaiting() < 12  ) {
-			if(hasQuestionForMe != null) {
-				answerNoteToQuestion();				
+		while (theFirm.getGoneHome().getNumberWaiting() < 12) {
+			if (hasQuestionForMe != null) {
+				answerNoteToQuestion();
 				logAction("answered team leader's question");
-			}
-			else {
+			} else {
 				try {
 					sleep(10);
 				} catch (InterruptedException e) {
@@ -211,7 +209,7 @@ public class Manager extends Employee {
 				}
 			}
 		}
-		while(theFirm.getClock().getCurrTime() < 1020){
+		while (theFirm.getClock().getCurrTime() < 1020) {
 			try {
 				sleep(10);
 			} catch (InterruptedException e) {
@@ -219,6 +217,6 @@ public class Manager extends Employee {
 			}
 		}
 		goHome();
-		
+
 	}
 }

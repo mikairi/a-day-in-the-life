@@ -3,11 +3,6 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class TeamLeader extends Employee {
-
-	/*
-	 * Variables
-	 */
-
 	// Group of employees on this Team Leader's team
 	private ArrayList<Developer> myTeam = new ArrayList<Developer>();
 
@@ -109,10 +104,8 @@ public class TeamLeader extends Employee {
 		try {
 			myManager.getMorningTeamLeadStandup().await();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BrokenBarrierException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
