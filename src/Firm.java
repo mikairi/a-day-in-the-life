@@ -16,13 +16,17 @@ public class Firm {
 	public FirmClock getClock() {
 		return clock;
 	}
-
+	
 	public ConferenceRoom getConfRoom() {
 		return confRoom;
 	}
 
 	public ManagersOffice getManOffice() {
 		return manOffice;
+	}
+	
+	public CyclicBarrier getGoneHome() {
+		return goneHome;
 	}
 
 	public void startDay() {
@@ -37,9 +41,5 @@ public class Firm {
 		} catch (BrokenBarrierException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public CyclicBarrier getGoneHome() {
-		return goneHome;
 	}
 }
