@@ -15,33 +15,30 @@ public class Manager extends Employee {
 		super(firm);
 		setName("Manager");
 	}
-	
+
 	public synchronized void addTeamLeader(TeamLeader lead) {
 		myLeads.add(lead);
 	}
-	
+
 	public boolean getIsManagerBusy() {
 		return isBusy;
 	}
-	
-	public CyclicBarrier getMorningTeamLeadStandup()
-	{
+
+	public CyclicBarrier getMorningTeamLeadStandup() {
 		return morningTeamLeadStandup;
 	}
 
-	
 	/**
-	*	Answer a question from your team lead
-	*/
-	public void answerTeamLeadQuestion(){
-	// 10 minutes to answer a question
-			try {
-				sleep(100);
-				logAction("answered Team Leader question.");
-			}	 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+	 * Answer a question from your team lead
+	 */
+	public void answerTeamLeadQuestion() {
+		// 10 minutes to answer a question
+		try {
+			sleep(100);
+			logAction("answered Team Leader question.");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// meeting with team leads
@@ -218,4 +215,3 @@ public class Manager extends Employee {
 		
 	}
 }
-

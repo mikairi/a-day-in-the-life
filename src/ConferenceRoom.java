@@ -11,7 +11,7 @@ public class ConferenceRoom {
 	private int numEmployees = 0;
 	private LinkedList<Integer> waitingTeams = new LinkedList<Integer>();
 	private CyclicBarrier startMeeting = new CyclicBarrier(4);
-	private CyclicBarrier endOfDayMeeting = new CyclicBarrier(13);
+	private CyclicBarrier endOfDayMeeting = new CyclicBarrier(12); //12 for debugging purpose
 	private boolean isEmpty = true;
 		
 	public synchronized boolean canEnter() {

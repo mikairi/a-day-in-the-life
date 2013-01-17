@@ -25,7 +25,7 @@ public class Developer extends Employee {
 	*	Ask a question to your team lead
 	*/
 	public void askTeamLeadQuestion(){
-		logAction("asked a question.");
+		logAction("asks a question.");
 		
 		myLead.leaveNote(this);
 	}
@@ -49,7 +49,7 @@ public class Developer extends Employee {
 	// meeting with other devs and team lead
 	public void goToTeamMeeting(){
 		
-		logAction("goes to team meeting");
+		logAction("goes to team meeting.");
 		
 		try {
 			myLead.getSmallTeamConference().await();
@@ -59,7 +59,7 @@ public class Developer extends Employee {
 			e.printStackTrace();
 		}
 		
-		logAction("returns from team meeting");
+		logAction("returns from team meeting.");
 	}
 
 	public void run(){
@@ -138,7 +138,7 @@ public class Developer extends Employee {
 					}
 				}
 				else {
-					logAction("team leader went home, I'll ask question tomorrow");
+//					logAction("team leader went home, I'll ask question tomorrow");
 					hasQuestion = false;
 				}
 			}
