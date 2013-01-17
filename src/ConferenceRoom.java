@@ -30,7 +30,6 @@ public class ConferenceRoom {
 	public void attendEndOfDayMeeting() {
 		try {
 			endOfDayMeeting.await();
-			Thread.sleep(150);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (BrokenBarrierException e) {

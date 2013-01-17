@@ -36,7 +36,7 @@ public class TeamLeader extends Employee {
 	 */
 	public void askManagerQuestion() {
 		hasQuestion = true;
-		logAction("asked manager a question");
+		logAction("asked manager a question.");
 		myManager.leaveNote(this);
 	}
 
@@ -84,7 +84,7 @@ public class TeamLeader extends Employee {
 			e.printStackTrace();
 		}
 
-		logAction("ends team meeting.");
+		logAction("ended team meeting.");
 
 		theFirm.getConfRoom().leaveRoom();
 
@@ -99,7 +99,7 @@ public class TeamLeader extends Employee {
 	}
 
 	public void attendStandup() {
-		logAction("goes to leader standup meeting");
+		logAction("goes to leader standup meeting.");
 
 		try {
 			myManager.getMorningTeamLeadStandup().await();
@@ -109,7 +109,7 @@ public class TeamLeader extends Employee {
 			e.printStackTrace();
 		}
 
-		logAction("returns from leader standup meeting");
+		logAction("returns from leader standup meeting.");
 	}
 	
 	public void run() {
@@ -215,8 +215,7 @@ public class TeamLeader extends Employee {
 		goToEndOfDayMeeting();
 
 		// The time after the final meeting until the end of day
-		while (theFirm.getClock().getCurrTime() < endTime
-				|| hasQuestionForMe != null) {
+		while (theFirm.getClock().getCurrTime() < endTime || hasQuestionForMe != null) {
 			if (hasQuestionForMe != null) {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();

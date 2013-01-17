@@ -56,7 +56,7 @@ public class Manager extends Employee {
 			}
 		}
 
-		logAction("started morning leader meeting");
+		logAction("starts morning leader meeting.");
 
 		try {
 			sleep(150);
@@ -64,7 +64,7 @@ public class Manager extends Employee {
 			e.printStackTrace();
 		}
 
-		logAction("ended leader meeting");
+		logAction("ended leader meeting.");
 		try {
 			// cyclic half-barrier
 			morningTeamLeadStandup.await();
@@ -87,7 +87,7 @@ public class Manager extends Employee {
 			}
 		}
 
-		logAction("started end of day status meeting");
+		logAction("starts end of day status meeting.");
 
 		try {
 			sleep(150);
@@ -95,7 +95,7 @@ public class Manager extends Employee {
 			e.printStackTrace();
 		}
 
-		logAction("status meeting ended");
+		logAction("ended status meeting.");
 
 		try {
 			// cyclic half-barrier
@@ -110,7 +110,7 @@ public class Manager extends Employee {
 	public void run() {
 
 		sleepUntil(480);
-		logAction("arrived at work");
+		logAction("arrives at work.");
 
 		int timeToStartLunch = 720;
 		// int timeToEndLunch = 780;
@@ -121,7 +121,7 @@ public class Manager extends Employee {
 		while (theFirm.getClock().getCurrTime() < morningMeeting) {
 			if (hasQuestionForMe != null) {
 				answerNoteToQuestion();
-				logAction("answered team leader's question");
+				logAction("answered team leader's question.");
 			} else {
 				try {
 					sleep(10);
@@ -143,7 +143,7 @@ public class Manager extends Employee {
 		while (theFirm.getClock().getCurrTime() < timeToStartLunch) {
 			if (hasQuestionForMe != null) {
 				answerNoteToQuestion();
-				logAction("answered team leader's question");
+				logAction("answered team leader's question.");
 			} else {
 				try {
 					sleep(10);
@@ -165,7 +165,7 @@ public class Manager extends Employee {
 		while (theFirm.getClock().getCurrTime() < afternoonMeeting) {
 			if (hasQuestionForMe != null) {
 				answerNoteToQuestion();
-				logAction("answered team leader's question");
+				logAction("answered team leader's question.");
 			} else {
 				try {
 					sleep(10);
@@ -187,7 +187,7 @@ public class Manager extends Employee {
 		while (theFirm.getClock().getCurrTime() < 960) {
 			if (hasQuestionForMe != null) {
 				answerNoteToQuestion();
-				logAction("answered team leader's question");
+				logAction("answered team leader's question.");
 			} else {
 				try {
 					sleep(10);
@@ -200,7 +200,7 @@ public class Manager extends Employee {
 		while (theFirm.getGoneHome().getNumberWaiting() < 12) {
 			if (hasQuestionForMe != null) {
 				answerNoteToQuestion();
-				logAction("answered team leader's question");
+				logAction("answered team leader's question.");
 			} else {
 				try {
 					sleep(10);
