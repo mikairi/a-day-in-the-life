@@ -118,8 +118,6 @@ public abstract class Employee extends Thread {
 		}
 
 		logAction("arrives at work.");
-		
-		returnToWork();
 	}
 
 	/**
@@ -168,7 +166,7 @@ public abstract class Employee extends Thread {
 	 * @param verb the action the employee took, usually a verb phrase.
 	 */
 	protected void logAction(String verb) {
-		System.out.println(theFirm.getClock().formatTime() + " " + getName() + " " + verb);
+		System.out.println(theFirm.getClock().formatTime() + "\t" + getName() + " " + verb);
 	}
 
 	public void inspire() {

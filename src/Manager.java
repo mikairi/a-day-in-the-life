@@ -134,7 +134,9 @@ public class Manager extends Employee {
 		// Go to morning executive meeting
 		isBusy = true;
 		try {
+			logAction("goes to morning executive meeting.");
 			sleep(600);
+			logAction("returns from morning executive meeting.");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -156,7 +158,9 @@ public class Manager extends Employee {
 		// Go to lunch
 		isBusy = true;
 		try {
+			logAction("goes to lunch.");
 			sleep(600);
+			logAction("returns from lunch.");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -178,7 +182,9 @@ public class Manager extends Employee {
 		// Go to afternoon executive meeting
 		isBusy = true;
 		try {
+			logAction("goes to afternoon executive meeting.");
 			sleep(600);
+			logAction("returns from afternoon executive meeting.");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

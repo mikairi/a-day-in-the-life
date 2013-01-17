@@ -52,7 +52,7 @@ public class FirmClock {
 				currTime += 1;
 			}
 		};
-		timer.schedule(task, 0, 10);
+		timer.schedule(task, 0, TIME_SCALE);
 
 	}
 

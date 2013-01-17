@@ -76,7 +76,8 @@ public class TeamLeader extends Employee {
 			}
 		}
 
-		logAction("starts team meeting.");
+		System.out.println(theFirm.getClock().formatTime() + "\tTeam "
+				+ getTeamNumber() + " starts team meeting.");
 
 		try {
 			sleep(150);
@@ -84,7 +85,8 @@ public class TeamLeader extends Employee {
 			e.printStackTrace();
 		}
 
-		logAction("ended team meeting.");
+		System.out.println(theFirm.getClock().formatTime() + "\tTeam "
+				+ getTeamNumber() + " ended team meeting.");
 
 		theFirm.getConfRoom().leaveRoom();
 
@@ -111,7 +113,7 @@ public class TeamLeader extends Employee {
 
 		logAction("returns from leader standup meeting.");
 	}
-	
+
 	public void run() {
 		sleepUntil(480);
 		goToWork();
@@ -125,9 +127,11 @@ public class TeamLeader extends Employee {
 		startTeamMeeting();
 
 		// The time leading up to lunch time
-		// To avoid deadlock, Team leaders will always answer questions before they try to 
-		// ask a question. Setting the priorities in this way, the deadlock where all
-		// employees are waiting for questions to be answered is avoided. 
+		// To avoid deadlock, Team leaders will always answer questions before
+		// they try to
+		// ask a question. Setting the priorities in this way, the deadlock
+		// where all
+		// employees are waiting for questions to be answered is avoided.
 		while (theFirm.getClock().getCurrTime() < timeToStartLunch) {
 
 			if (hasQuestionForMe != null) {
@@ -215,7 +219,8 @@ public class TeamLeader extends Employee {
 		goToEndOfDayMeeting();
 
 		// The time after the final meeting until the end of day
-		while (theFirm.getClock().getCurrTime() < endTime || hasQuestionForMe != null) {
+		while (theFirm.getClock().getCurrTime() < endTime
+				|| hasQuestionForMe != null) {
 			if (hasQuestionForMe != null) {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();
