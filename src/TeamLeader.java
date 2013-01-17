@@ -12,7 +12,7 @@ public class TeamLeader extends Employee {
 	private ArrayList<Developer> myTeam = new ArrayList<Developer>();
 
 	// Not including team leader, a team has 3 developers
-	private CyclicBarrier smallTeamConference = new CyclicBarrier(3);
+	private CyclicBarrier smallTeamConference = new CyclicBarrier(4);
 
 	// This team leader's manager
 	private Manager myManager;

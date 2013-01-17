@@ -6,6 +6,7 @@ public class Main {
 	public static void main(String[] args) {
 		Firm firm = new Firm();
 		Manager manager = new Manager(firm);
+		manager.start();
 		for (int team = 1; team < 4; team++) {
 			TeamLeader lead = new TeamLeader(team, manager, firm);
 			lead.start();
