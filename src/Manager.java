@@ -21,7 +21,8 @@ public class Manager extends Employee {
 	}
 
 	public boolean getIsManagerBusy() {
-		return isBusy;
+		//return isBusy;
+		return true;
 	}
 
 	public CyclicBarrier getMorningTeamLeadStandup() {

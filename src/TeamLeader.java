@@ -141,9 +141,11 @@ public class TeamLeader extends Employee {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();
 				} else {
+					//System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
 					if (myManager.getIsManagerBusy()) {
 						logAction("manager is busy, team leader made up an answer");
 						answerNoteToQuestion();
+						//System.out.println("((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((");
 					} else {
 						askManagerQuestion();
 						while (hasQuestion) {
@@ -167,6 +169,8 @@ public class TeamLeader extends Employee {
 						e.printStackTrace();
 					}
 				}
+				System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+
 			} else {
 				try {
 					sleep(10);

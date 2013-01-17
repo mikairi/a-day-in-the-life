@@ -177,7 +177,7 @@ public abstract class Employee extends Thread {
 	}
 
 	public void inspire() {
-		System.out.println("I AM INSPIRED WITH ALL THINGS CONCURRENT");
+		logAction("I AM INSPIRED WITH ALL THINGS CONCURRENT");
 		hasQuestion = true;
 	}
 }

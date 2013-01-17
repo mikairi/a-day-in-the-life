@@ -9,7 +9,7 @@ public class QuestionFairy extends Thread{
 	int maxTime;
 	int minTime;
 	Random r;
-	boolean awake;
+	Firm myFirm;
 	
 	/**
 	 * Throughout the work day this critter will randomly select a Developer 
@@ -26,12 +26,29 @@ public class QuestionFairy extends Thread{
 	 * @param minTimeToWait - Min Time in milliseconds to wait 
 	 * 		between questions
 	 */
-	public QuestionFairy(ArrayList<Employee> people, int maxTimeToWait, int minTimeToWait){
+	public QuestionFairy(ArrayList<Employee> people, int minTimeToWait, int maxTimeToWait, Firm theFirm){
 		maxTime = maxTimeToWait;
-		maxTime = maxTimeToWait;
+		minTime = minTimeToWait;
 		workers = people;
 		r = new Random();
-		awake= true;
+		myFirm = theFirm;
+	}
+	
+	/**
+	*	Causes the thread to wait until the FirmClock associated
+	*   with this object reads the passed time. Time expressed in
+	*   minutes.
+	*
+	*	@param time    Time to sleep until
+	*/
+	void sleepUntil(long time){
+		while( myFirm.getClock().getCurrTime() < time ){
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	
@@ -41,17 +58,11 @@ public class QuestionFairy extends Thread{
 		* so he is the last to arrive at the office.
 		*/
 		System.out.println( "Question Fairy Thread Starts.");
-		try{
-			wait();
-		}
-		catch( Exception e ){
-			System.err.println( e.getMessage() );
-				
-		}
+		sleepUntil(540);
+		System.out.println( "Question Fairy awakens from his slumber.");
 		// Day Begins	
-		while( awake){
-			System.out.println( "Question Fairy wakes up.");
-			int sleepTime = r.nextInt(maxTime-minTime) + minTime;
+		while( myFirm.getClock().getCurrTime() < 960 ){
+			int sleepTime = r.nextInt(maxTime - minTime) + minTime;
 			int personToInspire = r.nextInt( workers.size());
 			workers.get(personToInspire).inspire();
 			try{

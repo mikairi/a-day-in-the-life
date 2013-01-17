@@ -77,6 +77,7 @@ public class Developer extends Employee {
 				answerNoteToQuestion();
 			}
 			else if(hasQuestion) {
+				//System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
 				askTeamLeadQuestion();
 				while(hasQuestion) {
 					try {
@@ -85,6 +86,7 @@ public class Developer extends Employee {
 						e.printStackTrace();
 					}
 				}
+				//System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 			}
 			else {
 				try {
