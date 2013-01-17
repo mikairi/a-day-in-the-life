@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Generic employee. Including the manager.
+ *
+ */
 public abstract class Employee extends Thread {
 
 	final private int NUMBER_MINUTES_TO_WORK = 480;
@@ -12,8 +16,6 @@ public abstract class Employee extends Thread {
 	
 	protected Firm theFirm;
 	
-	private boolean idle = false;
-	private boolean eatenLunch = false;
 	private boolean hasGoneHome = false;
 
 	protected Random randomNum = new Random();
@@ -98,8 +100,6 @@ public abstract class Employee extends Thread {
 	 */
 	protected void goToWork() {
 
-		idle = false;
-
 		// generate a time between 0 and 30 minutes
 		arrivalTime = randomNum.nextInt(30);
 		
@@ -108,10 +108,10 @@ public abstract class Employee extends Thread {
 		lunchTime = randomNum.nextInt(30-arrivalTime) + 30;
 		
 		// calculate end time for employee to leave
-		endTime = arrivalTime + lunchTime + NUMBER_MINUTES_TO_WORK;
+		endTime = 480 + arrivalTime + lunchTime + NUMBER_MINUTES_TO_WORK;
 		
 		// convert arrival time to simulation time
-		simulationTime = arrivalTime * 10;		
+		simulationTime = arrivalTime * FirmClock.TIME_SCALE;		
 
 		try {
 			sleep(simulationTime);
@@ -129,12 +129,10 @@ public abstract class Employee extends Thread {
 	 */
 	protected void goToLunch() {
 
-		idle = false;
-		
 		logAction("goes to lunch.");
 		
 		// convert lunch time to simulation time
-		simulationTime = lunchTime * 10;	
+		simulationTime = lunchTime * FirmClock.TIME_SCALE;	
 
 		try {
 			sleep(simulationTime);
@@ -142,7 +140,6 @@ public abstract class Employee extends Thread {
 			e.printStackTrace();
 		}
 
-		eatenLunch = true;
 		logAction("returns from lunch.");
 		returnToWork();
 	}
@@ -151,7 +148,6 @@ public abstract class Employee extends Thread {
 		logAction("goes to project status update meeting.");
 		theFirm.getConfRoom().attendEndOfDayMeeting();
 		logAction("returns from project status meeting.");
-		returnToWork();
 	}
 
 	/**
@@ -167,7 +163,6 @@ public abstract class Employee extends Thread {
 	 */
 	protected void returnToWork() {
 		logAction("is now working.");
-		idle = true;
 	}
 
 	/**

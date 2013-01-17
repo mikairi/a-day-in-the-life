@@ -1,6 +1,9 @@
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
+/**
+ * Firm keeps track and provide access to firm's resources.
+ */
 public class Firm {
 	private final FirmClock clock;
 	private final ConferenceRoom confRoom;
@@ -29,10 +32,16 @@ public class Firm {
 		return goneHome;
 	}
 
+	/**
+	 * Start the clock and start the day.
+	 */
 	public void startDay() {
 		clock.start();
 	}
 	
+	/**
+	 * Employee leaves the firm.
+	 */
 	public void leaveFirm() {
 		try {
 			goneHome.await();

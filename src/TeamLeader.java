@@ -3,11 +3,6 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class TeamLeader extends Employee {
-
-	/*
-	 * Variables
-	 */
-
 	// Group of employees on this Team Leader's team
 	private ArrayList<Developer> myTeam = new ArrayList<Developer>();
 
@@ -42,7 +37,7 @@ public class TeamLeader extends Employee {
 	 */
 	public void askManagerQuestion() {
 		hasQuestion = true;
-		logAction("asked manager a question");
+		logAction("asked manager a question.");
 		myManager.leaveNote(this);
 	}
 
@@ -90,7 +85,7 @@ public class TeamLeader extends Employee {
 			e.printStackTrace();
 		}
 
-		logAction("ends team meeting.");
+		logAction("ended team meeting.");
 
 		theFirm.getConfRoom().leaveRoom();
 
@@ -105,19 +100,17 @@ public class TeamLeader extends Employee {
 	}
 
 	public void attendStandup() {
-		logAction("goes to leader standup meeting");
+		logAction("goes to leader standup meeting.");
 
 		try {
 			myManager.getMorningTeamLeadStandup().await();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BrokenBarrierException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		logAction("returns from leader standup meeting");
+		logAction("returns from leader standup meeting.");
 	}
 	
 	public void run() {
@@ -226,7 +219,7 @@ public class TeamLeader extends Employee {
 		goToEndOfDayMeeting();
 
 		// The time after the final meeting until the end of day
-		while (theFirm.getClock().getCurrTime() < endTime || hasQuestionForMe.size() != 0){
+		while (theFirm.getClock().getCurrTime() < endTime || hasQuestionForMe.size() != 0) {
 			if (hasQuestionForMe.size() != 0) {
 				if (randomNum.nextBoolean()) {
 					answerNoteToQuestion();

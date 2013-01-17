@@ -21,6 +21,11 @@ public class FirmClock {
 	 * End of the day ( 5:00pm )in minutes
 	 */
 	private static final int END_DAY = 1020;
+	
+	/**
+	 * Time scale: 1 minute in real life is 10 ms in simulation.
+	 */
+	public static final int TIME_SCALE = 10;
 
 	/**
 	 * The clock
